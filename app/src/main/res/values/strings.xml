@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Check Market</string>
+    <string name="app_name_top_bar_title">Check Market Shopping List</string>
+    <string name="list">List</string>
+    <string name="history">History</string>
+    <string name="market_list_title">Market List</string>
+    <string name="fruits">Fruits</string>
+    <string name="cleaning">Cleaning</string>
+    <string name="cereals">Cereals</string>
+    <string name="meat">Meat</string>
+    <string name="vegetables">Vegetables</string>
+    <string name="dairy">Dairy</string>
+    <string name="snacks">Snacks</string>
+    <string name="general_food">General Food</string>
+    <string name="bread">Bread</string>
+    <string name="restroom">Restroom</string>
+    <string name="kitchen">Kitchen</string>
+    <string name="household">House Hold</string>
+    <string name="add_market_item">Add market item in the list</string>
+</resources>
