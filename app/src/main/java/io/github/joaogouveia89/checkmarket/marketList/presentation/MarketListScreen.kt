@@ -1,6 +1,8 @@
 package io.github.joaogouveia89.checkmarket.marketList.presentation
 
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +25,7 @@ fun MarketListScreen(
         topBar = {
             CheckMarketAppBar(
                 title = R.string.market_list_title,
-                actionIcon = R.drawable.ic_add,
+                actionIcon = Icons.Filled.Add,
                 actionContentDescription = stringResource(id = R.string.add_market_item),
                 onActionClick = { onNavigateToAddMarketItemClick() }
             )

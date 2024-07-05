@@ -28,7 +28,7 @@ fun CheckMarketAppBar(
     @StringRes title: Int,
     textColor: Color = White,
     backgroundColor: Color = CheckMarketRed,
-    @DrawableRes actionIcon: Int? = null,
+    actionIcon: ImageVector? = null,
     actionContentDescription: String = "",
     onActionClick: () -> Unit = {}
 ) {
@@ -53,7 +53,7 @@ fun CheckMarketAppBar(
                     modifier = Modifier
                         .padding(horizontal = 8.dp)
                         .clickable { onActionClick() },
-                    imageVector = ImageVector.vectorResource(id = icon),
+                    imageVector = icon,
                     contentDescription = actionContentDescription
                 )
             }

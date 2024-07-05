@@ -17,4 +17,10 @@
     <string name="kitchen">Kitchen</string>
     <string name="household">House Hold</string>
     <string name="add_market_item">Add market item in the list</string>
+    <string name="market_list_item_add">New Item</string>
+    <string name="save">Save</string>
+    <string name="product_name">Product Name</string>
+    <string name="price">Price</string>
+    <string name="quantity">Quantity</string>
+    <string name="category">Category</string>
 </resources>
