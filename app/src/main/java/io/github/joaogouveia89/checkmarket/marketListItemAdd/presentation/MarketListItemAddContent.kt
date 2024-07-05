@@ -22,7 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,10 +45,10 @@ fun MarketListItemAddContent(
     onNavigateBack: () -> Unit
 ) {
     // State variables to hold user inputs
-    var name by remember { mutableStateOf("") }
-    var price by remember { mutableStateOf("") }
-    var quantity by remember { mutableStateOf("") }
-    var selectedCategory by remember { mutableStateOf(MarketItemCategory.FRUITS) }
+    var name by rememberSaveable { mutableStateOf("") }
+    var price by rememberSaveable { mutableStateOf("") }
+    var quantity by rememberSaveable { mutableStateOf("") }
+    var selectedCategory by rememberSaveable { mutableStateOf(MarketItemCategory.FRUITS) }
 
     // Function to handle the save action
     val onSave = {

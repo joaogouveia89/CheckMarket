@@ -65,6 +65,22 @@ dependencies {
     implementation(libs.androidx.material.icons.core)
     implementation(libs.androidx.material.icons.extended)
 
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v270)
+    implementation(libs.kotlinx.coroutines.core)
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    // To use Kotlin annotation processing tool (kapt)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+
     // Dependency injection - Hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
@@ -73,17 +89,11 @@ dependencies {
     kapt(libs.hilt.compiler)
     kapt(libs.androidx.hilt.compiler)
 
-    // Gson
-    implementation(libs.gson)
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
-
     // Kotlin datetime
     implementation(libs.kotlinx.datetime)
+
+    //JavaX inject
+    implementation(libs.javax.inject)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
