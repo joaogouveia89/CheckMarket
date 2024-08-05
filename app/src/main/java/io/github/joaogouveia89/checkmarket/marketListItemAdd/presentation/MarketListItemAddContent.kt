@@ -2,6 +2,7 @@ package io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -61,13 +62,6 @@ fun MarketListItemAddContent(
             .padding(paddingValues)
             .fillMaxSize()
     ) {
-        // Top App Bar
-        CheckMarketAppBar(
-            title = R.string.add_market_item,
-            actionIcon = Icons.Default.Save,
-            actionContentDescription = stringResource(R.string.save),
-            onActionClick = {},
-        )
 
         // Input Fields
         Spacer(modifier = Modifier.height(16.dp))
@@ -87,7 +81,7 @@ fun MarketListItemAddContent(
             value = price,
             onValueChange = { price = it },
             label = { Text(text = stringResource(id = R.string.price)) },
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Decimal),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -108,43 +102,56 @@ fun MarketListItemAddContent(
         Spacer(modifier = Modifier.height(16.dp))
 
         // Category Selection
-        Text(
-            text = stringResource(id = R.string.category),
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(horizontal = 16.dp)
+        CategorySelection(
+            selected = selectedCategory,
+            onCategorySelected = { selectedCategory = it }
         )
+    }
+}
 
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            items(MarketItemCategory.entries.size) { categoryId ->
+@Composable
+private fun CategorySelection(
+    selected: MarketItemCategory,
+    onCategorySelected: (MarketItemCategory) -> Unit = {}
+) {
 
-                val category = MarketItemCategory.entries[categoryId]
+    Text(
+        text = stringResource(id = R.string.category),
+        style = MaterialTheme.typography.headlineSmall,
+        modifier = Modifier.padding(horizontal = 16.dp)
+    )
 
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .padding(horizontal = 8.dp)
-                        .clickable { selectedCategory = category }
-                        .background(
-                            if (selectedCategory == category) CheckMarketSecondaryVariant.copy(alpha = 0.2f)
-                            else Color.Transparent,
-                            shape = RoundedCornerShape(8.dp)
-                        )
-                        .padding(8.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(id = category.iconRes),
-                        contentDescription = null,
-                        modifier = Modifier.size(48.dp),
-                        tint = Color.Unspecified
+    LazyRow(
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        items(MarketItemCategory.entries.size) { categoryId ->
+
+            val category = MarketItemCategory.entries[categoryId]
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .clickable { onCategorySelected(category) }
+                    .background(
+                        if (selected == category) CheckMarketSecondaryVariant.copy(alpha = 0.2f)
+                        else Color.Transparent,
+                        shape = RoundedCornerShape(8.dp)
                     )
-                    Text(
-                        text = stringResource(id = category.nameRes),
-                        style = MaterialTheme.typography.bodyMedium,
-                        textAlign = TextAlign.Center
-                    )
-                }
+                    .padding(8.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = category.iconRes),
+                    contentDescription = null,
+                    modifier = Modifier.size(48.dp),
+                    tint = Color.Unspecified
+                )
+                Text(
+                    text = stringResource(id = category.nameRes),
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }

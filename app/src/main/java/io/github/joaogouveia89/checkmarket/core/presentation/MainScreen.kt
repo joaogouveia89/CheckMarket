@@ -14,16 +14,9 @@ import io.github.joaogouveia89.checkmarket.core.presentation.navigation.Navigati
 @Composable
 fun MainScreen(navController: NavHostController) {
 
-    Scaffold(
-        bottomBar = {
-            BottomNavigationBar(navController = navController)
-        },
-        content = { paddingValues ->
-            Box(modifier = Modifier.padding(paddingValues)) {
-                NavigationGraph(navController = navController)
-            }
-        }
-    )
+    Box{
+        NavigationGraph(navController = navController)
+    }
 }
 
 @Preview
