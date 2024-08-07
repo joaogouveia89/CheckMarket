@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -36,7 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.joaogouveia89.checkmarket.R
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
-import io.github.joaogouveia89.checkmarket.core.presentation.CheckMarketAppBar
 import io.github.joaogouveia89.checkmarket.ui.theme.CheckMarketSecondaryVariant
 
 @Composable

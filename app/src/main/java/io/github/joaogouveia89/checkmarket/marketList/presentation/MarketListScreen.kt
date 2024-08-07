@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import io.github.joaogouveia89.checkmarket.R
 import io.github.joaogouveia89.checkmarket.core.model.MarketItem
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
-import io.github.joaogouveia89.checkmarket.core.presentation.CheckMarketAppBar
+import io.github.joaogouveia89.checkmarket.core.presentation.topBars.CheckMarketAppBar
 import io.github.joaogouveia89.checkmarket.marketList.presentation.components.MarketListContent
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -21,6 +21,7 @@ import kotlinx.datetime.toLocalDateTime
 fun MarketListScreen(
     onNavigateToAddMarketItemClick: () -> Unit
 ) {
+
     Scaffold(
         topBar = {
             CheckMarketAppBar(
