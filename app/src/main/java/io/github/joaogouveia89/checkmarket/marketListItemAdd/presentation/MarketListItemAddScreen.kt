@@ -27,7 +27,7 @@ internal const val NEW_ITEM_ID = -1
 @Composable
 fun MarketListiTemAddScreen(
     onNavigateBack: () -> Unit,
-    onItemSelect: (Int) -> Unit,
+    onItemSelect: (MatchItem) -> Unit,
     onNewQuery: (String) -> Unit,
     matchItems: List<MatchItem> = emptyList()
 ) {
@@ -62,7 +62,14 @@ fun MarketListiTemAddScreen(
             } else {
                 MatchItemsList(
                     matchItems = matchItems,
-                    onItemSelect = { onItemSelect(it) }
+                    onItemSelect = { matchItem ->
+
+                        val item = if (matchItem.id == NEW_ITEM_ID) {
+                            matchItem.copy(name = query)
+                        } else matchItem
+
+                        onItemSelect(item)
+                    }
                 )
             }
         }

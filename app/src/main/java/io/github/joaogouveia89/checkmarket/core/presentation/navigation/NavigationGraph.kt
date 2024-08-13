@@ -45,7 +45,14 @@ fun NavigationGraph(navController: NavHostController) {
 
             MarketListiTemAddScreen(
                 onNavigateBack = { navController.popBackStack() },
-                onItemSelect = { },
+                onItemSelect = { item ->
+                    if(item.id == -1){
+                        // TODO: Navigate to item creation screen
+                    }else{
+                        // TODO: Call view model to save item and navigate back
+                        navController.navigate(MarketListItemAddScreenRoute.route)
+                    }
+                },
                 onNewQuery = { },
                 matchItems = resultList
             )

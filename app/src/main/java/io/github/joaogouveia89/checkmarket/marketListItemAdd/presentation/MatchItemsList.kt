@@ -23,7 +23,7 @@ import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 fun MatchItemsList(
     modifier: Modifier = Modifier,
     matchItems: List<MatchItem>,
-    onItemSelect: (Int) -> Unit
+    onItemSelect: (MatchItem) -> Unit
 ) {
 
     val newItem = MatchItem(
@@ -39,7 +39,7 @@ fun MatchItemsList(
             Row(
                 modifier = Modifier
                     .padding(16.dp)
-                    .clickable { onItemSelect(newItem.id) },
+                    .clickable { onItemSelect(newItem) },
                 verticalAlignment = CenterVertically
             ) {
                 Text(
@@ -56,21 +56,25 @@ fun MatchItemsList(
 
         }
         items(matchItems.size) {
-            MatchItem(onItemSelect, matchItems, it)
+            MatchItem(
+                onItemSelect = onItemSelect,
+                matches = matchItems,
+                it
+            )
         }
     }
 }
 
 @Composable
 private fun MatchItem(
-    onItemSelect: (Int) -> Unit,
+    onItemSelect: (MatchItem) -> Unit,
     matches: List<MatchItem>,
     it: Int
 ) {
     Text(
         modifier = Modifier
             .padding(16.dp)
-            .clickable { onItemSelect(matches[it].id) },
+            .clickable { onItemSelect(matches[it]) },
         text = matches[it].name,
         style = MaterialTheme.typography.bodyMedium,
     )
