@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import io.github.joaogouveia89.checkmarket.history.presentation.HistoryScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListScreen
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.MarketListiTemAddScreen
 
 @Composable
@@ -27,8 +28,26 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         composable(MarketListItemAddScreenRoute.route) {
+            val resultList = listOf(
+                MatchItem(
+                    id = 0,
+                    name = "Arroz"
+                ),
+                MatchItem(
+                    id = 1,
+                    name = "Feijão"
+                ),
+                MatchItem(
+                    id = 2,
+                    name = "Macarrão"
+                )
+            ) // Temporary, it will come from view model
+
             MarketListiTemAddScreen(
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
+                onItemSelect = { },
+                onNewQuery = { },
+                matchItems = resultList
             )
         }
     }

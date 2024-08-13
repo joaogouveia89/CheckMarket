@@ -24,4 +24,8 @@
     <string name="quantity">Quantity</string>
     <string name="category">Category</string>
     <string name="back">Back</string>
+    <string name="add_new_item">Add new Item</string>
+    <string name="no_query_typed_message">Start typing to search for an item</string>
+    <string name="new_item">New Item</string>
+    <string name="search">Search</string>
 </resources>
