@@ -9,10 +9,6 @@ sealed class BottomNavItem(
     @DrawableRes val icon: Int,
     val route: String
 ) {
-
-    // TODO: Change those items later
-
-    //ImageVector.vectorResource(R.drawable.ic_pikachu)
     data object MarketList : BottomNavItem(
         title = R.string.list,
         icon = R.drawable.ic_cart,

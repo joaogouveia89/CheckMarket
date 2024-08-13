@@ -1,9 +1,12 @@
 package io.github.joaogouveia89.checkmarket.core.presentation.navigation
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import io.github.joaogouveia89.checkmarket.history.presentation.HistoryScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListScreen
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
@@ -47,7 +50,7 @@ fun NavigationGraph(navController: NavHostController) {
                 onNavigateBack = { navController.popBackStack() },
                 onItemSelect = { item ->
                     if(item.id == -1){
-                        // TODO: Navigate to item creation screen
+                        navController.navigate(CreateNewItemNav.CreateNewIScreen.passItemName(itemName = item.name))
                     }else{
                         // TODO: Call view model to save item and navigate back
                         navController.navigate(MarketListItemAddScreenRoute.route)
@@ -56,6 +59,18 @@ fun NavigationGraph(navController: NavHostController) {
                 onNewQuery = { },
                 matchItems = resultList
             )
+        }
+
+        composable(
+            route = CreateNewItemNav.CreateNewIScreen.route,
+            arguments = listOf(
+                navArgument(NEW_ITEM_NAME_KEY) {
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            )
+        ){
+            // TODO call new item screen and add the item name passed by argument to the item name
         }
     }
 }
