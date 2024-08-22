@@ -1,6 +1,7 @@
 package io.github.joaogouveia89.checkmarket.core.presentation.navigation
 
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CleaningServices
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -28,6 +29,7 @@ fun NavigationGraph(navController: NavHostController) {
 
         composable(BottomNavItem.History.route) {
             HistoryScreen()
+            Icons.Filled.CleaningServices
         }
 
         composable(MarketListItemAddScreenRoute.route) {
@@ -49,9 +51,13 @@ fun NavigationGraph(navController: NavHostController) {
             MarketListiTemAddScreen(
                 onNavigateBack = { navController.popBackStack() },
                 onItemSelect = { item ->
-                    if(item.id == -1){
-                        navController.navigate(CreateNewItemNav.CreateNewIScreen.passItemName(itemName = item.name))
-                    }else{
+                    if (item.id == -1) {
+                        navController.navigate(
+                            CreateNewItemNav.CreateNewIScreen.passItemName(
+                                itemName = item.name
+                            )
+                        )
+                    } else {
                         // TODO: Call view model to save item and navigate back
                         navController.navigate(MarketListItemAddScreenRoute.route)
                     }
@@ -69,7 +75,7 @@ fun NavigationGraph(navController: NavHostController) {
                     defaultValue = ""
                 }
             )
-        ){
+        ) {
             // TODO call new item screen and add the item name passed by argument to the item name
         }
     }

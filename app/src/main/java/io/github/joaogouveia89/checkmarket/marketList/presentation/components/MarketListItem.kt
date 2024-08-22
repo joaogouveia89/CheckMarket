@@ -146,7 +146,7 @@ private fun MarketListItemPreview() {
             name = "Apple",
             price = 100.0,
             quantity = 3,
-            category = MarketItemCategory.FRUITS,
+            category = MarketItemCategory.FOOD,
             createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
             updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         )

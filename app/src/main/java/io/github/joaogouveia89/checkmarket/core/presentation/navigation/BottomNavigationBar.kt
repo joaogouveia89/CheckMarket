@@ -9,9 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
@@ -53,7 +51,7 @@ fun BottomNavigationBar(
                 },
                 icon = {
                     Icon(
-                        imageVector = ImageVector.vectorResource(destination.icon),
+                        imageVector = destination.icon,
                         contentDescription = null,
                         tint = if (currentRoute == destination.route) Black else White
                     )

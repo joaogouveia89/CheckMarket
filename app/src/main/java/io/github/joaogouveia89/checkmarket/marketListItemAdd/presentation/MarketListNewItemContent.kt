@@ -26,7 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -46,7 +45,7 @@ fun MarketListItemAddContent(
     var name by rememberSaveable { mutableStateOf("") }
     var price by rememberSaveable { mutableStateOf("") }
     var quantity by rememberSaveable { mutableStateOf("") }
-    var selectedCategory by rememberSaveable { mutableStateOf(MarketItemCategory.FRUITS) }
+    var selectedCategory by rememberSaveable { mutableStateOf(MarketItemCategory.FOOD) }
 
     // Function to handle the save action
     val onSave = {
@@ -139,7 +138,7 @@ private fun CategorySelection(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Icon(
-                    painter = painterResource(id = category.iconRes),
+                    imageVector = category.icon,
                     contentDescription = null,
                     modifier = Modifier.size(48.dp),
                     tint = Color.Unspecified

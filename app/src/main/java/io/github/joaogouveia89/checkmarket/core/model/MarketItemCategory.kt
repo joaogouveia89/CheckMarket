@@ -1,77 +1,45 @@
 package io.github.joaogouveia89.checkmarket.core.model
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bathtub
+import androidx.compose.material.icons.filled.CleaningServices
+import androidx.compose.material.icons.filled.Inventory
+import androidx.compose.material.icons.filled.LocalPizza
+import androidx.compose.material.icons.filled.Restaurant
+import androidx.compose.material.icons.filled.Shower
+import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.joaogouveia89.checkmarket.R
 
 enum class MarketItemCategory(
     val id: Int,
     @StringRes val nameRes: Int,
-    @DrawableRes val iconRes: Int
+    val icon: ImageVector
 ){
-    FRUITS(
+    FOOD(
         id = 0,
-        nameRes = R.string.fruits,
-        iconRes = R.drawable.ic_fruit
-    ),
-    CEREALS(
-        id = 1,
-        nameRes = R.string.cereals,
-        iconRes = R.drawable.ic_rice_bowl
-    ),
-    MEAT(
-        id = 2,
-        nameRes = R.string.meat,
-        iconRes = R.drawable.ic_meat
-    ),
-    VEGETABLES(
-        id = 3,
-        nameRes = R.string.vegetables,
-        iconRes = R.drawable.ic_vegetables
-    ),
-    // laticinios
-    DAIRY(
-        id = 4,
-        nameRes = R.string.dairy,
-        iconRes = R.drawable.ic_milk
+        nameRes = R.string.food,
+        icon = Icons.Filled.Restaurant
     ),
     SNACKS(
         id = 5,
         nameRes = R.string.snacks,
-        iconRes = R.drawable.ic_snacks
+        icon = Icons.Filled.LocalPizza
     ),
-    BREAD(
-        id = 6,
-        nameRes = R.string.bread,
-        iconRes = R.drawable.ic_bread
-    ),
-    GENERAL_FOOD(
-        id = 7,
-        nameRes = R.string.general_food,
-        iconRes = R.drawable.ic_general_food
-    ),
-
-    RESTROOM(
-        id = 8,
-        nameRes = R.string.restroom,
-        iconRes = R.drawable.ic_restroom
-    ),
-
-    KITCHEN(
+    HYGIENE(
         id = 9,
-        nameRes = R.string.kitchen,
-        iconRes = R.drawable.ic_kitchen
+        nameRes = R.string.hygiene,
+        icon = Icons.Filled.Bathtub
     ),
-
     CLEANING(
         id = 10,
         nameRes = R.string.cleaning,
-        iconRes = R.drawable.ic_cleaning
+        icon = Icons.Filled.CleaningServices
     ),
 
     HOUSEHOLD(
         id = 11,
         nameRes = R.string.household,
-        iconRes = R.drawable.ic_household
+        icon = Icons.Filled.Inventory
     ),
 }

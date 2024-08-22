@@ -1,6 +1,5 @@
 package io.github.joaogouveia89.checkmarket.marketList.presentation.components
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -17,21 +16,22 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.joaogouveia89.checkmarket.R
+import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 
 @Composable
 fun CategoryMark(
     modifier: Modifier = Modifier,
     @StringRes title: Int,
-    @DrawableRes iconRes: Int
+    icon: ImageVector
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = CenterVertically
     ) {
         Icon(
-            imageVector = ImageVector.vectorResource(id = iconRes),
+            imageVector = icon,
             contentDescription = stringResource(id = title),
-            tint= Color.Unspecified
+            tint = Color.Unspecified
         )
         Text(
             modifier = Modifier
@@ -46,7 +46,7 @@ fun CategoryMark(
 @Composable
 private fun CategoryMarkPreview() {
     CategoryMark(
-        title = R.string.fruits,
-        iconRes = R.drawable.ic_fruit
+        title = MarketItemCategory.FOOD.nameRes,
+        icon = MarketItemCategory.FOOD.icon
     )
 }
