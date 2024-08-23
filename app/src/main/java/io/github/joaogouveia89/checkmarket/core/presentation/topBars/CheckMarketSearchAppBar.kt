@@ -41,7 +41,7 @@ fun CheckMarketSearchAppBar(
     onQueryChange: (String) -> Unit,
 ) {
     var query by rememberSaveable { mutableStateOf("") }
-    var debounceJob: Job? by rememberSaveable { mutableStateOf(null) }
+    var debounceJob: Job? by remember { mutableStateOf(null) }
     val coroutineScope = rememberCoroutineScope()
 
     TopAppBar(

@@ -7,15 +7,15 @@ import androidx.compose.material.icons.filled.CleaningServices
 import androidx.compose.material.icons.filled.Inventory
 import androidx.compose.material.icons.filled.LocalPizza
 import androidx.compose.material.icons.filled.Restaurant
-import androidx.compose.material.icons.filled.Shower
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.joaogouveia89.checkmarket.R
 
+// TODO: ADD COLOR TO THE ICONS
 enum class MarketItemCategory(
     val id: Int,
     @StringRes val nameRes: Int,
     val icon: ImageVector
-){
+) {
     FOOD(
         id = 0,
         nameRes = R.string.food,
@@ -41,5 +41,5 @@ enum class MarketItemCategory(
         id = 11,
         nameRes = R.string.household,
         icon = Icons.Filled.Inventory
-    ),
+    )
 }

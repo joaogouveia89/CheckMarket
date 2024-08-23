@@ -9,21 +9,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.joaogouveia89.checkmarket.core.presentation.MainScreen
 import io.github.joaogouveia89.checkmarket.ui.theme.CheckMarketTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             CheckMarketTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
-                ) {
-                    MainScreen(navController = rememberNavController())
-                }
+                MainScreen(navController = rememberNavController())
             }
         }
     }

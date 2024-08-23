@@ -3,6 +3,8 @@ package io.github.joaogouveia89.checkmarket.core.presentation.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CleaningServices
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,6 +14,8 @@ import io.github.joaogouveia89.checkmarket.history.presentation.HistoryScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListScreen
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.MarketListiTemAddScreen
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.ItemCreateScreen
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.ItemCreateViewModel
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
@@ -76,7 +80,11 @@ fun NavigationGraph(navController: NavHostController) {
                 }
             )
         ) {
-            // TODO call new item screen and add the item name passed by argument to the item name
+            val viewModel: ItemCreateViewModel = hiltViewModel()
+            ItemCreateScreen(
+                modifier = Modifier,
+                itemName = viewModel.itemName
+            )
         }
     }
 }

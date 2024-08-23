@@ -13,7 +13,6 @@ kotlinxDatetime = "0.6.0-RC.2"
 lifecycleRuntimeKtxVersion = "2.7.0"
 materialIconsCore = "1.6.8"
 navigationCompose = "2.7.7"
-retrofit = "2.9.0"
 hilt = "2.48"
 hiltAndroid = "2.49"
 hiltCompiler = "2.48"
@@ -62,5 +61,6 @@ androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lif
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref = "kotlin"  }
 org-jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
