@@ -4,14 +4,19 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.format
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
-fun LocalDateTime.toHumanReadable(): String{
+fun LocalDateTime.toHumanReadable(): String {
     val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    val duration = Instant.fromEpochMilliseconds(this.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds())
-        .minus(Instant.fromEpochMilliseconds(now.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()))
+    val duration = Instant.fromEpochMilliseconds(
+        this.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+    )
+        .minus(
+            Instant.fromEpochMilliseconds(
+                now.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+            )
+        )
 
     return when {
         duration.inWholeMinutes < 1 -> "Just now"

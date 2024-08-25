@@ -1,4 +1,4 @@
-package io.github.joaogouveia89.checkmarket.marketListItemCreate
+package io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -9,7 +9,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ItemCreateViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
     // Public for now
     val itemName = savedStateHandle.get<String>(key = NEW_ITEM_NAME_KEY)
 }

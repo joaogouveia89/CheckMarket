@@ -28,4 +28,5 @@
     <string name="no_query_typed_message">Start typing to search for an item</string>
     <string name="new_item">New Item</string>
     <string name="search">Search</string>
+    <string name="item_create_title">Create new Item</string>
 </resources>

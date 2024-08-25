@@ -14,8 +14,8 @@ import io.github.joaogouveia89.checkmarket.history.presentation.HistoryScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListScreen
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.MarketListiTemAddScreen
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.ItemCreateScreen
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.ItemCreateViewModel
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateScreen
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateViewModel
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
@@ -83,7 +83,8 @@ fun NavigationGraph(navController: NavHostController) {
             val viewModel: ItemCreateViewModel = hiltViewModel()
             ItemCreateScreen(
                 modifier = Modifier,
-                itemName = viewModel.itemName
+                itemName = viewModel.itemName,
+                onNavigateBack = {}
             )
         }
     }
