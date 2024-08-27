@@ -14,6 +14,7 @@ import io.github.joaogouveia89.checkmarket.history.presentation.HistoryScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListScreen
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.MarketListiTemAddScreen
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateEvent
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateScreen
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateViewModel
 
@@ -84,7 +85,7 @@ fun NavigationGraph(navController: NavHostController) {
             ItemCreateScreen(
                 modifier = Modifier,
                 itemName = viewModel.itemName,
-                onNavigateBack = {}
+                onNavigateBack = { viewModel.dispatch(ItemCreateEvent.SaveItem(it)) }
             )
         }
     }
