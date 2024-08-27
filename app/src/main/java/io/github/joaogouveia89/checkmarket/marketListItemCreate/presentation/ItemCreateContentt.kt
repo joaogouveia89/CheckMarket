@@ -36,7 +36,6 @@ import io.github.joaogouveia89.checkmarket.R
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 import io.github.joaogouveia89.checkmarket.ui.theme.CheckMarketSecondaryVariant
 
-// TODO: Pass it to marketListItemCreate package
 @Composable
 fun ItemCreateContent(
     modifier: Modifier = Modifier,

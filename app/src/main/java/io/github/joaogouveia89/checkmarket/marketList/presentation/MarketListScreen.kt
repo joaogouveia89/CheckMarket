@@ -3,7 +3,11 @@ package io.github.joaogouveia89.checkmarket.marketList.presentation
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,6 +21,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
+// TODO: Add a FAB to redirects to add market item screen
 @Composable
 fun MarketListScreen(
     onNavigateToAddMarketItemClick: () -> Unit
@@ -25,10 +30,7 @@ fun MarketListScreen(
     Scaffold(
         topBar = {
             CheckMarketAppBar(
-                title = R.string.market_list_title,
-                actionIcon = Icons.Filled.Add,
-                actionContentDescription = stringResource(id = R.string.add_market_item),
-                onActionClick = { onNavigateToAddMarketItemClick() }
+                title = R.string.market_list_title
             )
         }
     ) { paddingValues ->
@@ -120,7 +122,8 @@ fun MarketListScreen(
             paddingValues = paddingValues,
             onItemClick = { itemIndex ->
 
-            }
+            },
+            onNavigateToAddMarketItemClick = onNavigateToAddMarketItemClick
         )
     }
 }

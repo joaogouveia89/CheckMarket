@@ -16,8 +16,8 @@
     <string name="restroom">Restroom</string>
     <string name="hygiene">Hygiene</string>
     <string name="household">House Hold</string>
-    <string name="add_market_item">Add market item in the list</string>
-    <string name="market_list_item_add">New Item</string>
+    <string name="add_market_item">New Item</string>
+    <string name="add_market_item_descr">Add market item in the list</string>
     <string name="save">Save</string>
     <string name="product_name">Product Name</string>
     <string name="price">Price</string>

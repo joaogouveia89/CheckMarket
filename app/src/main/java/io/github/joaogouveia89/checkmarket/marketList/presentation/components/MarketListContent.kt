@@ -1,13 +1,22 @@
 package io.github.joaogouveia89.checkmarket.marketList.presentation.components
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.joaogouveia89.checkmarket.R
 import io.github.joaogouveia89.checkmarket.core.model.MarketItem
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 import kotlinx.datetime.Clock
@@ -19,16 +28,15 @@ fun MarketListContent(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
     marketItemsList: Map<MarketItemCategory, List<MarketItem>>,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Int) -> Unit,
+    onNavigateToAddMarketItemClick: () -> Unit
 ) {
 
-    Column(
+    Box(
         modifier = modifier
             .padding(paddingValues)
     ) {
-        LazyColumn(
-            modifier = modifier
-        ) {
+        LazyColumn {
             marketItemsList.keys.forEach { category ->
                 item {
                     CategoryMark(
@@ -45,6 +53,25 @@ fun MarketListContent(
                 }
             }
         }
+        ExtendedFloatingActionButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+            onClick = { onNavigateToAddMarketItemClick() },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = stringResource(id = R.string.add_market_item_descr),
+                    tint = Color.White
+                )
+            },
+            text = {
+                Text(
+                    text = stringResource(id = R.string.add_market_item),
+                    color = Color.White
+                )
+            },
+        )
     }
 }
 
@@ -135,6 +162,7 @@ private fun MarketListContentPreview() {
     MarketListContent(
         marketItemsList = listGroupped,
         paddingValues = PaddingValues(16.dp),
-        onItemClick = {}
+        onItemClick = {},
+        onNavigateToAddMarketItemClick = {}
     )
 }
