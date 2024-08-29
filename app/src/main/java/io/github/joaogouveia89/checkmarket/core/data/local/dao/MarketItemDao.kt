@@ -8,5 +8,5 @@ import io.github.joaogouveia89.checkmarket.core.data.local.entity.MarketItemEnti
 @Dao
 interface MarketItemDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(marketItem: MarketItemEntity)
+    suspend fun insert(marketItem: MarketItemEntity): Long
 }

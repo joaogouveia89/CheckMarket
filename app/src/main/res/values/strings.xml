@@ -29,4 +29,5 @@
     <string name="new_item">New Item</string>
     <string name="search">Search</string>
     <string name="item_create_title">Create new Item</string>
+    <string name="error_saving_item">Error on saving item</string>
 </resources>

@@ -11,7 +11,7 @@ data class MarketItemEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
     val price: Double,
-    val quantity: Int,
+    val quantity: String,
     val category: MarketItemCategory
 )
 
