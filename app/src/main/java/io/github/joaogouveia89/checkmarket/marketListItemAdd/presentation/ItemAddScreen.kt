@@ -1,6 +1,7 @@
 package io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -25,7 +26,7 @@ import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 internal const val NEW_ITEM_ID = -1
 
 @Composable
-fun MarketListiTemAddScreen(
+fun ItemAddScreen(
     onNavigateBack: () -> Unit,
     onItemSelect: (MatchItem) -> Unit,
     onNewQuery: (String) -> Unit,
@@ -46,52 +47,22 @@ fun MarketListiTemAddScreen(
         }
     ) { paddingValues ->
 
-        val contentAlignment = if (query.isEmpty())
-            Alignment.Center
-        else
-            Alignment.TopStart
-
-        Box(
-            Modifier
-                .fillMaxSize()
+        ItemAddContent(
+            modifier = Modifier
                 .padding(paddingValues),
-            contentAlignment = contentAlignment
-        ) {
-            if (query.isEmpty()) {
-                NoQueryTypedMessage()
-            } else {
-                MatchItemsList(
-                    matchItems = matchItems,
-                    onItemSelect = { matchItem ->
-
-                        val item = if (matchItem.id == NEW_ITEM_ID) {
-                            matchItem.copy(name = query)
-                        } else matchItem
-
-                        onItemSelect(item)
-                    }
-                )
-            }
-        }
+            query = query,
+            matchItems = matchItems,
+            onItemSelect = onItemSelect
+        )
     }
 }
 
-@Composable
-private fun NoQueryTypedMessage() {
-    Text(
-        modifier = Modifier
-            .padding(horizontal = 80.dp),
-        textAlign = TextAlign.Center,
-        color = Color.Gray,
-        text = stringResource(R.string.no_query_typed_message),
-        style = MaterialTheme.typography.headlineSmall
-    )
-}
+
 
 @Preview
 @Composable
 private fun MarketListItemAddScreenPreview() {
-    MarketListiTemAddScreen(
+    ItemAddScreen(
         onNavigateBack = {},
         onItemSelect = {},
         matchItems = listOf(),

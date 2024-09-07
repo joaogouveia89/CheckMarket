@@ -4,6 +4,7 @@ import android.util.Log
 import io.github.joaogouveia89.checkmarket.BuildConfig
 import io.github.joaogouveia89.checkmarket.R
 import io.github.joaogouveia89.checkmarket.core.data.local.dao.MarketItemDao
+import io.github.joaogouveia89.checkmarket.core.data.local.mappers.asMarketItem
 import io.github.joaogouveia89.checkmarket.core.model.MarketItem
 import io.github.joaogouveia89.checkmarket.core.model.asMarketItemEntity
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.source.ItemAddLocalDataSource
@@ -35,7 +36,9 @@ class ItemAddLocalDataSourceImpl @Inject constructor(
         emit(ItemAddStatus.Loading)
 
         try {
-            val items = marketItemDao.fetchAll()
+            val items = marketItemDao
+                .fetchAll()
+                .map { it.asMarketItem() }
             emit(ItemAddStatus.Success(items))
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {

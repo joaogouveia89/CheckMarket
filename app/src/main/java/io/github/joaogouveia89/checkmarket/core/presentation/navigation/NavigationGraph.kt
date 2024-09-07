@@ -13,7 +13,8 @@ import androidx.navigation.navArgument
 import io.github.joaogouveia89.checkmarket.history.presentation.HistoryScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListScreen
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.MarketListiTemAddScreen
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddScreen
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddViewModel
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateEvent
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateScreen
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateViewModel
@@ -45,6 +46,8 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         composable(MARKET_LIST_ITEM_ADD_SCREEN_ROUTE) {
+            val viewModel: ItemAddViewModel = hiltViewModel()
+
             val resultList = listOf(
                 MatchItem(
                     id = 0,
@@ -60,7 +63,7 @@ fun NavigationGraph(navController: NavHostController) {
                 )
             ) // Temporary, it will come from view model
 
-            MarketListiTemAddScreen(
+            ItemAddScreen(
                 onNavigateBack = { navController.popBackStack() },
                 onItemSelect = { item ->
                     if (item.id == -1) {
