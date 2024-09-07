@@ -1,4 +1,4 @@
-package io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository
+package io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository
 
 import androidx.annotation.StringRes
 

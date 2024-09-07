@@ -7,7 +7,7 @@ import io.github.joaogouveia89.checkmarket.core.data.local.dao.MarketItemDao
 import io.github.joaogouveia89.checkmarket.core.model.MarketItem
 import io.github.joaogouveia89.checkmarket.core.model.asMarketItemEntity
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.source.ItemAddLocalDataSource
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository.ItemAddStatus
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.ItemAddStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
