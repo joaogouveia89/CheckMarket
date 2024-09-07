@@ -17,3 +17,5 @@ val CheckMarketSecondary = Color(0xFF03DAC5)  // Teal
 val CheckMarketSecondaryVariant = Color(0xFF018786)
 val CheckMarketOnBackground = Color(0xFF000000) // Text color on background
 val CheckMarketOnSurface = Color(0xFF000000)    // Text color on surface
+
+val CheckMarketErrorRed = Color(0xFFD32F2F)  // A deep, intense red for error

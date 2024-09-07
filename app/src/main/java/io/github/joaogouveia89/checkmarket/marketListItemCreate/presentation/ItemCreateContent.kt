@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -38,8 +40,10 @@ import androidx.compose.ui.unit.dp
 import io.github.joaogouveia89.checkmarket.R
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 import io.github.joaogouveia89.checkmarket.core.presentation.components.messages.ErrorMessage
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository.ItemCreateFields
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.model.ItemCreateSaveUiModel
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.state.ItemCreateState
+import io.github.joaogouveia89.checkmarket.ui.theme.CheckMarketErrorRed
 import io.github.joaogouveia89.checkmarket.ui.theme.CheckMarketSecondaryVariant
 import io.github.joaogouveia89.checkmarket.ui.theme.CheckMarketTheme
 
@@ -67,36 +71,73 @@ fun ItemCreateContent(
             // Input Fields
             Spacer(modifier = Modifier.height(16.dp))
 
+            val isNameInvalid = uiState.invalidFields.contains(ItemCreateFields.NAME)
             OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 value = name,
                 onValueChange = { name = it },
                 label = { Text(text = stringResource(id = R.string.product_name)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
+                isError = isNameInvalid,
+                singleLine = true,
+                trailingIcon = {
+                    if (isNameInvalid) {
+                        Icon(
+                            imageVector = Icons.Default.Error,
+                            contentDescription = null,
+                            tint = CheckMarketErrorRed
+                        )
+                    }
+                }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            val isPriceInvalid = uiState.invalidFields.contains(ItemCreateFields.PRICE)
             OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 value = price,
                 onValueChange = { price = it },
                 label = { Text(text = stringResource(id = R.string.price)) },
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Decimal),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
+                isError = isPriceInvalid,
+                singleLine = true,
+                trailingIcon = {
+                    if (isPriceInvalid) {
+                        Icon(
+                            imageVector = Icons.Default.Error,
+                            contentDescription = null,
+                            tint = CheckMarketErrorRed
+                        )
+                    }
+                }
+
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            val isQuantityInvalid = uiState.invalidFields.contains(ItemCreateFields.QUANTITY)
             OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 value = quantity,
                 onValueChange = { quantity = it },
                 label = { Text(text = stringResource(id = R.string.quantity)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
+                isError = isQuantityInvalid,
+                singleLine = true,
+                trailingIcon = {
+                    if (isQuantityInvalid) {
+                        Icon(
+                            imageVector = Icons.Default.Error,
+                            contentDescription = null,
+                            tint = CheckMarketErrorRed
+                        )
+                    }
+                }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -256,6 +297,118 @@ private fun MarketListItemAddContentErrorMessagePreview() {
             mutableStateOf(
                 ItemCreateState(
                     errorRes = R.string.error_invalid_name,
+                    item = ItemCreateSaveUiModel(
+                        category = MarketItemCategory.SNACKS
+                    )
+                )
+            )
+        }
+        ItemCreateContent(
+            uiState = uiState,
+            onSaveClick = {},
+            onErrorDismiss = {
+                uiState = uiState.copy(
+                    errorRes = null,
+                )
+            }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MarketListItemAddContentInvalidNamePreview() {
+    CheckMarketTheme {
+        var uiState by remember {
+            mutableStateOf(
+                ItemCreateState(
+                    invalidFields = listOf(
+                        ItemCreateFields.NAME
+                    ),
+                    item = ItemCreateSaveUiModel(
+                        category = MarketItemCategory.SNACKS
+                    )
+                )
+            )
+        }
+        ItemCreateContent(
+            uiState = uiState,
+            onSaveClick = {},
+            onErrorDismiss = {
+                uiState = uiState.copy(
+                    errorRes = null,
+                )
+            }
+        )
+    }
+}
+@Preview(showBackground = true)
+@Composable
+private fun MarketListItemAddContentInvalidPricePreview() {
+    CheckMarketTheme {
+        var uiState by remember {
+            mutableStateOf(
+                ItemCreateState(
+                    invalidFields = listOf(
+                        ItemCreateFields.PRICE
+                    ),
+                    item = ItemCreateSaveUiModel(
+                        category = MarketItemCategory.SNACKS
+                    )
+                )
+            )
+        }
+        ItemCreateContent(
+            uiState = uiState,
+            onSaveClick = {},
+            onErrorDismiss = {
+                uiState = uiState.copy(
+                    errorRes = null,
+                )
+            }
+        )
+    }
+}
+@Preview(showBackground = true)
+@Composable
+private fun MarketListItemAddContentInvalidQuantityPreview() {
+    CheckMarketTheme {
+        var uiState by remember {
+            mutableStateOf(
+                ItemCreateState(
+                    invalidFields = listOf(
+                        ItemCreateFields.QUANTITY
+                    ),
+                    item = ItemCreateSaveUiModel(
+                        category = MarketItemCategory.SNACKS
+                    )
+                )
+            )
+        }
+        ItemCreateContent(
+            uiState = uiState,
+            onSaveClick = {},
+            onErrorDismiss = {
+                uiState = uiState.copy(
+                    errorRes = null,
+                )
+            }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MarketListItemAddContentInvalidAllPreview() {
+    CheckMarketTheme {
+        var uiState by remember {
+            mutableStateOf(
+                ItemCreateState(
+                    invalidFields = listOf(
+                        ItemCreateFields.NAME,
+                        ItemCreateFields.PRICE,
+                        ItemCreateFields.QUANTITY
+                    ),
                     item = ItemCreateSaveUiModel(
                         category = MarketItemCategory.SNACKS
                     )

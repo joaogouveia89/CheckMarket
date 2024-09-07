@@ -16,7 +16,8 @@ fun ItemCreateScreen(
     uiState: ItemCreateState,
     onSaveClick: (item: ItemCreateSaveUiModel) -> Unit,
     onErrorDismiss: () -> Unit,
-    onSaveSuccess: (savedItemId: Long) -> Unit
+    onSaveSuccess: (savedItemId: Long) -> Unit,
+    onBackClick: () -> Unit
 ) {
     // LaunchedEffect ensuress to handle isSaved only once avoiding multiples navigations
     LaunchedEffect(uiState.isSaved) {
@@ -29,7 +30,8 @@ fun ItemCreateScreen(
         topBar = {
             // Top App Bar
             CheckMarketAppBar(
-                title = R.string.item_create_title
+                title = R.string.item_create_title,
+                backAction = onBackClick
             )
         }
     ) { paddingValues ->

@@ -1,7 +1,11 @@
 package io.github.joaogouveia89.checkmarket.core.presentation.topBars
 
 import androidx.annotation.StringRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -18,10 +22,23 @@ import io.github.joaogouveia89.checkmarket.R
 fun CheckMarketAppBar(
     modifier: Modifier = Modifier,
     @StringRes title: Int,
+    backAction: (() -> Unit)? = null,
     textColor: Color = White
 ) {
     TopAppBar(
         modifier = modifier,
+        navigationIcon = {
+            backAction?.let {
+                IconButton(
+                    onClick = it
+                ){
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(id = R.string.back)
+                    )
+                }
+            }
+        },
         title = {
             Text(
                 text = stringResource(id = title),

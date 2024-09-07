@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import io.github.joaogouveia89.checkmarket.ui.theme.CheckMarketRed
+import io.github.joaogouveia89.checkmarket.ui.theme.CheckMarketErrorRed
 
 @Composable
 fun ErrorMessage(
@@ -29,7 +29,7 @@ fun ErrorMessage(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(CheckMarketRed)
+            .background(CheckMarketErrorRed)
     ) {
         Text(
             modifier = Modifier

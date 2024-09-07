@@ -112,7 +112,8 @@ fun NavigationGraph(navController: NavHostController) {
                             inclusive = false
                         }
                     }
-                }
+                },
+                onBackClick = { navController.popBackStack() }
             )
         }
     }
