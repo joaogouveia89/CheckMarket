@@ -4,10 +4,10 @@ import android.util.Log
 import io.github.joaogouveia89.checkmarket.BuildConfig
 import io.github.joaogouveia89.checkmarket.R
 import io.github.joaogouveia89.checkmarket.core.data.local.dao.MarketItemDao
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.ItemCreateSaveDomainModel
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.asMarketItemEntity
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.source.ItemCreateLocalDataSource
+import io.github.joaogouveia89.checkmarket.core.model.MarketItem
+import io.github.joaogouveia89.checkmarket.core.model.asMarketItemEntity
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository.ItemCreateStatus
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.source.ItemCreateLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -17,7 +17,7 @@ private const val TAG = "ItemCreateLocalDataSourceImpl"
 class ItemCreateLocalDataSourceImpl @Inject constructor(
     private val marketItemDao: MarketItemDao
 ) : ItemCreateLocalDataSource {
-    override suspend fun saveItem(item: ItemCreateSaveDomainModel): Flow<ItemCreateStatus> = flow {
+    override suspend fun saveItem(item: MarketItem): Flow<ItemCreateStatus> = flow {
         emit(ItemCreateStatus.Loading)
         try {
             val itemId = marketItemDao.insert(item.asMarketItemEntity())

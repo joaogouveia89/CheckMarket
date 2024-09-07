@@ -2,7 +2,7 @@ package io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.mo
 
 import androidx.compose.runtime.Stable
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.ItemCreateSaveDomainModel
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.ItemSaveDomainModel
 
 @Stable
 data class ItemCreateSaveUiModel(
@@ -14,7 +14,7 @@ data class ItemCreateSaveUiModel(
 )
 
 fun ItemCreateSaveUiModel.asDomainModel() =
-    ItemCreateSaveDomainModel(
+    ItemSaveDomainModel(
         name = name,
         price = price,
         quantity = quantity,

@@ -47,7 +47,7 @@ fun MarketListItem(
                 BottomInfo(
                     price = it.price,
                     quantity = it.quantity,
-                    updatedAt = it.updatedAt.toHumanReadable()
+                    updatedAt = it.updatedAt?.toHumanReadable()
                 )
             }
         }
@@ -70,8 +70,8 @@ private fun TopInfo(
 @Composable
 private fun BottomInfo(
     price: Double?,
-    quantity: Int?,
-    updatedAt: String
+    quantity: String?,
+    updatedAt: String?
 ) {
     Row(
         verticalAlignment = CenterVertically
@@ -96,22 +96,24 @@ private fun BottomInfo(
                     .weight(1f),
             ) {
                 MarketItemIconInfo(
-                    info = it.toString(),
+                    info = it,
                     icon = Icons.Outlined.Numbers,
                     iconContentDescription = "Quantity"
                 )
             }
         }
-        Column(
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .weight(1f),
-            horizontalAlignment = Alignment.End
-        ) {
-            Text(
-                text = updatedAt,
-                style = MaterialTheme.typography.labelLarge,
-            )
+        updatedAt?.let {
+            Column(
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .weight(1f),
+                horizontalAlignment = Alignment.End
+            ) {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            }
         }
     }
 }
@@ -145,7 +147,7 @@ private fun MarketListItemPreview() {
             id = 1,
             name = "Apple",
             price = 100.0,
-            quantity = 3,
+            quantity = "3 kg",
             category = MarketItemCategory.FOOD,
             createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
             updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())

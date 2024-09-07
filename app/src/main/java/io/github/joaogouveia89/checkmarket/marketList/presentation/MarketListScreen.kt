@@ -42,6 +42,7 @@ fun MarketListScreen(
                 name = "Chips",
                 category = MarketItemCategory.SNACKS,
                 price = 1.5,
+                quantity = "100g",
                 createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
                 updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             ),
@@ -50,6 +51,7 @@ fun MarketListScreen(
                 name = "Chocolate",
                 category = MarketItemCategory.SNACKS,
                 price = 2.0,
+                quantity = "100g",
                 createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
                 updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             ),
@@ -58,6 +60,7 @@ fun MarketListScreen(
                 name = "Biscoito",
                 category = MarketItemCategory.SNACKS,
                 price = 1.0,
+                quantity = "100g",
                 createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
                 updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             ),
@@ -67,6 +70,7 @@ fun MarketListScreen(
                 name = "Desinfetante",
                 category = MarketItemCategory.CLEANING,
                 price = 2.0,
+                quantity = "1L",
                 createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
                 updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             ),
@@ -75,6 +79,7 @@ fun MarketListScreen(
                 name = "Sabão em Pó",
                 category = MarketItemCategory.CLEANING,
                 price = 3.0,
+                quantity = "1kg",
                 createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
                 updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             ),
@@ -83,6 +88,7 @@ fun MarketListScreen(
                 name = "Água Sanitária",
                 category = MarketItemCategory.CLEANING,
                 price = 1.0,
+                quantity = "1L",
                 createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
                 updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             ),
@@ -92,6 +98,7 @@ fun MarketListScreen(
                 name = "Lâmpada",
                 category = MarketItemCategory.HOUSEHOLD,
                 price = 5.0,
+                quantity = "100g",
                 createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
                 updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             ),
@@ -100,6 +107,7 @@ fun MarketListScreen(
                 name = "Pilhas",
                 category = MarketItemCategory.HOUSEHOLD,
                 price = 3.0,
+                quantity = "100g",
                 createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
                 updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             ),
@@ -108,6 +116,7 @@ fun MarketListScreen(
                 name = "Fita Adesiva",
                 category = MarketItemCategory.HOUSEHOLD,
                 price = 2.0,
+                quantity = "100g",
                 createdAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
                 updatedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
             )

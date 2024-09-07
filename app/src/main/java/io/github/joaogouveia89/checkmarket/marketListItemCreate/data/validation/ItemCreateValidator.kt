@@ -1,13 +1,12 @@
 package io.github.joaogouveia89.checkmarket.marketListItemCreate.data.validation
 
-import io.github.joaogouveia89.checkmarket.R
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.ItemCreateSaveDomainModel
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.ItemSaveDomainModel
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository.ItemCreateFields
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
-class ItemCreateValidator(private val itemCreateSaveDomainModel: ItemCreateSaveDomainModel) {
+class ItemCreateValidator(private val itemCreateSaveDomainModel: ItemSaveDomainModel) {
     suspend fun validate(): List<ItemCreateFields> = coroutineScope {
         val validationErrors = listOf(
             async { checkNameValidation(itemCreateSaveDomainModel.name) },

@@ -1,6 +1,7 @@
 package io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository
 
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.ItemCreateSaveDomainModel
+import io.github.joaogouveia89.checkmarket.core.model.MarketItem
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.ItemSaveDomainModel
 import kotlinx.coroutines.flow.Flow
 
 enum class ItemCreateFields{
@@ -11,5 +12,5 @@ enum class ItemCreateFields{
 
 
 interface ItemCreateRepository {
-    suspend fun saveItem(item: ItemCreateSaveDomainModel): Flow<ItemCreateStatus>
+    suspend fun saveItem(item: ItemSaveDomainModel): Flow<ItemCreateStatus>
 }
