@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ItemAddLocalDataSource {
     suspend fun saveItem(item: MarketItem): Flow<ItemAddStatus>
-    suspend fun fetchItems(): Flow<List<MarketItem>>
+    suspend fun fetchItems(): Flow<ItemAddStatus>
 }
