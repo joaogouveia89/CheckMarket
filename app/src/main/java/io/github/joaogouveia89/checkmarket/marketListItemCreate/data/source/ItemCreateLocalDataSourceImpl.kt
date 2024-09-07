@@ -26,6 +26,7 @@ class ItemCreateLocalDataSourceImpl @Inject constructor(
             if (BuildConfig.DEBUG) {
                 Log.e(TAG, "saveItem: ${e.message}")
             }
+
             emit(ItemCreateStatus.Error(R.string.error_saving_item))
         }
     }
