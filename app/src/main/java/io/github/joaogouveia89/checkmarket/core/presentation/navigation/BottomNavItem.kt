@@ -15,12 +15,12 @@ sealed class BottomNavItem(
     data object MarketList : BottomNavItem(
         title = R.string.list,
         icon = Icons.Filled.ShoppingCart,
-        route = "market_list_route"
+        route = MARKET_LIST_ROUTE
     )
 
     data object History : BottomNavItem(
         title = R.string.history,
         icon = Icons.Filled.History,
-        route = "products_list_route"
+        route = HISTORY_ROUTE
     )
 }

@@ -1,4 +1,4 @@
-package io.github.joaogouveia89.checkmarket.core.model
+package io.github.joaogouveia89.checkmarket.core.di
 
 import android.content.Context
 import androidx.room.Room

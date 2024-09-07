@@ -5,14 +5,14 @@ import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 
 data class ItemCreateSaveDomainModel(
     val name: String,
-    val price: Double,
+    val price: String,
     val quantity: String,
     val category: MarketItemCategory
 )
 
 fun ItemCreateSaveDomainModel.asMarketItemEntity() = MarketItemEntity(
     name = name,
-    price = price,
+    price = price.toDouble(),
     quantity = quantity,
     category = category
 )

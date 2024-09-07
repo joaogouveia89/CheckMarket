@@ -3,17 +3,28 @@ package io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import io.github.joaogouveia89.checkmarket.R
 import io.github.joaogouveia89.checkmarket.core.presentation.topBars.CheckMarketAppBar
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.model.ItemCreateSaveUiModel
+import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.state.ItemCreateState
 
 @Composable
 fun ItemCreateScreen(
     modifier: Modifier = Modifier,
-    itemName: String?,
-    onNavigateBack: (item: ItemCreateSaveUiModel) -> Unit,
+    uiState: ItemCreateState,
+    onSaveClick: (item: ItemCreateSaveUiModel) -> Unit,
+    onErrorDismiss: () -> Unit,
+    onSaveSuccess: (savedItemId: Long) -> Unit
 ) {
+    // LaunchedEffect ensuress to handle isSaved only once avoiding multiples navigations
+    LaunchedEffect(uiState.isSaved) {
+        if (uiState.isSaved) {
+            onSaveSuccess(uiState.item.id)
+        }
+    }
+
     Scaffold(
         topBar = {
             // Top App Bar
@@ -25,8 +36,9 @@ fun ItemCreateScreen(
         ItemCreateContent(
             modifier = modifier
                 .padding(paddingValues),
-            itemName = itemName ?: "",
-            onSaveClick = onNavigateBack
+            uiState = uiState,
+            onSaveClick = onSaveClick,
+            onErrorDismiss = onErrorDismiss
         )
     }
 }

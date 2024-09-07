@@ -1,10 +1,10 @@
 package io.github.joaogouveia89.checkmarket.core.presentation.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CleaningServices
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -24,20 +24,27 @@ fun NavigationGraph(navController: NavHostController) {
         navController = navController,
         startDestination = BottomNavItem.MarketList.route
     ) {
-        composable(BottomNavItem.MarketList.route) {
+        composable(
+            BottomNavItem.MarketList.route,
+            arguments = listOf(
+                navArgument(SCROLL_TO_ITEM_ID) {
+                    type = NavType.LongType
+                    defaultValue = DEFAULT_SCROLL_TO_ITEM_ID
+                }
+            )
+        ) {
             MarketListScreen(
                 onNavigateToAddMarketItemClick = {
-                    navController.navigate(MarketListItemAddScreenRoute.route)
+                    navController.navigate(MARKET_LIST_ITEM_ADD_SCREEN_ROUTE)
                 }
             )
         }
 
         composable(BottomNavItem.History.route) {
             HistoryScreen()
-            Icons.Filled.CleaningServices
         }
 
-        composable(MarketListItemAddScreenRoute.route) {
+        composable(MARKET_LIST_ITEM_ADD_SCREEN_ROUTE) {
             val resultList = listOf(
                 MatchItem(
                     id = 0,
@@ -64,7 +71,7 @@ fun NavigationGraph(navController: NavHostController) {
                         )
                     } else {
                         // TODO: Call view model to save item and navigate back
-                        navController.navigate(MarketListItemAddScreenRoute.route)
+                        navController.navigate(MARKET_LIST_ITEM_ADD_SCREEN_ROUTE)
                     }
                 },
                 onNewQuery = { },
@@ -82,10 +89,30 @@ fun NavigationGraph(navController: NavHostController) {
             )
         ) {
             val viewModel: ItemCreateViewModel = hiltViewModel()
+
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
             ItemCreateScreen(
                 modifier = Modifier,
-                itemName = viewModel.itemName,
-                onNavigateBack = { viewModel.dispatch(ItemCreateEvent.SaveItem(it)) }
+                uiState = uiState,
+                onSaveClick = { viewModel.dispatch(ItemCreateEvent.SaveItem(it)) },
+                onErrorDismiss = { viewModel.dispatch(ItemCreateEvent.DismissError) },
+                onSaveSuccess = { savedItemId ->
+                    navController.navigate(
+                        MarketListItemNav.CreateMarketListItemScreen.passScrollToId(
+                            id = savedItemId
+                        )
+                    ) {
+                        /* popTo function clears the intermediate screens from the
+                        * backstack in this case the MarketListItemAddScreenRoute
+                        * and CreateNewIScreen the inclusive parameter should be
+                        * set to true if you want to remove the BottomNavItem.MarketList first
+                         */
+                        popUpTo(MARKET_LIST_ROUTE) {
+                            inclusive = false
+                        }
+                    }
+                }
             )
         }
     }

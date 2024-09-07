@@ -30,4 +30,7 @@
     <string name="search">Search</string>
     <string name="item_create_title">Create new Item</string>
     <string name="error_saving_item">Error on saving item</string>
+    <string name="error_invalid_price">Invalid price format</string>
+    <string name="error_invalid_name">Invalid name</string>
+    <string name="error_invalid_quantity">Invalid Quantity</string>
 </resources>
