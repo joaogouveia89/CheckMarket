@@ -18,7 +18,6 @@ class ItemCreateLocalDataSourceImpl @Inject constructor(
     private val marketItemDao: MarketItemDao
 ) : ItemCreateLocalDataSource {
     override suspend fun saveItem(item: MarketItem): Flow<ItemCreateStatus> = flow {
-        emit(ItemCreateStatus.Loading)
         try {
             val itemId = marketItemDao.insert(item.asMarketItemEntity())
             emit(ItemCreateStatus.Success(itemId))

@@ -3,6 +3,7 @@ package io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.reposito
 import androidx.annotation.StringRes
 
 sealed class ItemCreateStatus {
+    data object Idle : ItemCreateStatus()
     data object Loading : ItemCreateStatus()
     data class Success(val id: Long) : ItemCreateStatus()
     data class Error(@StringRes val messageRes: Int) : ItemCreateStatus()

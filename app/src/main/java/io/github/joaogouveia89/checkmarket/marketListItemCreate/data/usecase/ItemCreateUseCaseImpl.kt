@@ -15,6 +15,7 @@ class ItemCreateUseCaseImpl @Inject constructor(
     private val repository: ItemCreateRepository
 ) : ItemCreateUseCase {
     override suspend fun saveItem(item: ItemCreateSaveUiModel): Flow<ItemCreateStatus> = flow {
+        emit(ItemCreateStatus.Loading)
 
         val itemCreateDomain = item.copy(
             name = item.name.capitalizeFirstLetters()

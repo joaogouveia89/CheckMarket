@@ -9,5 +9,6 @@ data class ItemCreateState(
     val item: ItemCreateSaveUiModel = ItemCreateSaveUiModel(),
     @StringRes val errorRes: Int? = null,
     val isSaved: Boolean = false,
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val showError: Boolean = false
 )

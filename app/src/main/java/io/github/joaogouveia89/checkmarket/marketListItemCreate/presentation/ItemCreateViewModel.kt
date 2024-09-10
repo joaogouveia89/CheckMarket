@@ -1,6 +1,5 @@
 package io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +10,11 @@ import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.usecase.I
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.model.ItemCreateSaveUiModel
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.state.ItemCreateState
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,81 +30,54 @@ class ItemCreateViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    var uiState = MutableStateFlow(ItemCreateState())
-        private set
+    private val saveItemState = MutableStateFlow<ItemCreateStatus>(ItemCreateStatus.Idle)
+
+    private val showErrorBar: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
+    val uiState: StateFlow<ItemCreateState> = combine(
+        saveItemState,
+        showErrorBar
+    ) { saveItemState, showErrorBar ->
+        val state = when (saveItemState) {
+            is ItemCreateStatus.Loading -> ItemCreateState(isLoading = true)
+            is ItemCreateStatus.Error -> ItemCreateState(
+                errorRes = saveItemState.messageRes,
+                showError = true
+            )
+
+            is ItemCreateStatus.Success -> ItemCreateState(isSaved = true)
+            is ItemCreateStatus.ValidationErrors -> ItemCreateState(invalidFields = saveItemState.invalidFields)
+            is ItemCreateStatus.Idle -> ItemCreateState()
+        }
+        if (state.showError && !showErrorBar) {
+            state.copy(showError = false)
+        } else {
+            state
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = WhileSubscribed(),
+        initialValue = ItemCreateState(
+            item = ItemCreateSaveUiModel(
+                name = savedStateHandle.get<String>(key = NEW_ITEM_NAME_KEY) ?: ""
+            )
+        )
+    )
+
 
     internal fun dispatch(event: ItemCreateEvent) {
         when (event) {
             is ItemCreateEvent.SaveItem -> saveItem(event.item)
-            is ItemCreateEvent.DismissError -> dismissErrorMessage()
+            is ItemCreateEvent.DismissError -> showErrorBar.update { false }
         }
     }
 
     private fun saveItem(item: ItemCreateSaveUiModel) {
         viewModelScope.launch {
             itemCreateUseCase.saveItem(item)
-                .collectLatest { handleResponse(it) }
-        }
-    }
-
-    private fun dismissErrorMessage() {
-        uiState.update {
-            it.copy(
-                errorRes = null
-            )
-        }
-    }
-
-    private fun handleResponse(itemCreateStatus: ItemCreateStatus) {
-        when (itemCreateStatus) {
-            is ItemCreateStatus.Error -> {
-                // creating a new object here because I don't want to know the previous state
-                uiState.update {
-                    ItemCreateState(
-                        errorRes = itemCreateStatus.messageRes,
-                        item = it.item
-                    )
+                .collectLatest { status ->
+                    saveItemState.emit(status)
                 }
-            }
-
-            is ItemCreateStatus.Success -> {
-                uiState.update {
-                    ItemCreateState(
-                        isSaved = true,
-                        item = it.item.copy(
-                            id = itemCreateStatus.id
-                        )
-                    )
-                }
-            }
-
-            is ItemCreateStatus.Loading -> {
-                uiState.update {
-                    ItemCreateState(
-                        isLoading = true,
-                        item = it.item
-                    )
-                }
-            }
-
-            is ItemCreateStatus.ValidationErrors -> {
-                uiState.update {
-                    ItemCreateState(
-                        invalidFields = itemCreateStatus.invalidFields,
-                        item = it.item
-                    )
-                }
-            }
-        }
-    }
-
-    init {
-        uiState.update {
-            it.copy(
-                item = it.item.copy(
-                    name = savedStateHandle.get<String>(key = NEW_ITEM_NAME_KEY) ?: ""
-                )
-            )
         }
     }
 }
