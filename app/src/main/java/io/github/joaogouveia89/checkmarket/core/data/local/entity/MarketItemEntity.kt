@@ -19,7 +19,7 @@ data class MarketItemEntity(
 )
 
 
-class MarketItemCategoryConverter{
+class MarketItemCategoryConverter {
     @TypeConverter
     fun fromCategory(category: MarketItemCategory) = category.id
 
@@ -27,7 +27,7 @@ class MarketItemCategoryConverter{
     fun toCategory(categoryId: Int) = MarketItemCategory.entries.find { it.id == categoryId }
 }
 
-class LocalDateTimeConverter{
+class LocalDateTimeConverter {
     @TypeConverter
     fun fromLocalDateTime(dateTime: LocalDateTime): String {
         return dateTime.toString()

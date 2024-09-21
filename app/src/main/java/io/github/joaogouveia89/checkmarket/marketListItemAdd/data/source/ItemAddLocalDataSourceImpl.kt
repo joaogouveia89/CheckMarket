@@ -7,8 +7,8 @@ import io.github.joaogouveia89.checkmarket.core.data.local.dao.MarketItemDao
 import io.github.joaogouveia89.checkmarket.core.data.local.mappers.asMarketItem
 import io.github.joaogouveia89.checkmarket.core.model.MarketItem
 import io.github.joaogouveia89.checkmarket.core.model.asMarketItemEntity
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.source.ItemAddLocalDataSource
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.ItemAddStatus
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.source.ItemAddLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -32,7 +32,7 @@ class ItemAddLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchItems(): Flow<ItemAddStatus> = flow{
+    override suspend fun fetchItems(): Flow<ItemAddStatus> = flow {
         emit(ItemAddStatus.Loading)
 
         try {

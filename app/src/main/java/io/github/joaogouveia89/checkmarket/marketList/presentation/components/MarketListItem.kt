@@ -47,7 +47,7 @@ fun MarketListItem(
                 BottomInfo(
                     price = it.price,
                     quantity = it.quantity,
-                    updatedAt = it.updatedAt?.toHumanReadable()
+                    updatedAt = it.updatedAt.toHumanReadable()
                 )
             }
         }

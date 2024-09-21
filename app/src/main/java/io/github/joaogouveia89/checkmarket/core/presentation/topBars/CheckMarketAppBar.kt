@@ -31,7 +31,7 @@ fun CheckMarketAppBar(
             backAction?.let {
                 IconButton(
                     onClick = it
-                ){
+                ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(id = R.string.back)

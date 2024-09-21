@@ -1,7 +1,6 @@
 package io.github.joaogouveia89.checkmarket.marketListItemCreate.data.usecase
 
 import io.github.joaogouveia89.checkmarket.core.util.ktx.capitalizeFirstLetters
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.ItemSaveDomainModel
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository.ItemCreateRepository
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository.ItemCreateStatus
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.usecase.ItemCreateUseCase

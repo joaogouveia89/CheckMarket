@@ -12,7 +12,8 @@ data class MarketItem(
     val category: MarketItemCategory,
     val price: Double,
     val quantity: String,
-    val createdAt: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
+    val createdAt: LocalDateTime = Clock.System.now()
+        .toLocalDateTime(TimeZone.currentSystemDefault()),
     val updatedAt: LocalDateTime = createdAt
 )
 

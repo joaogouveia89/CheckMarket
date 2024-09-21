@@ -17,6 +17,6 @@ const val LOCAL_DATABASE_NAME = "check_market_database"
     version = 1,
     exportSchema = false
 )
-abstract class CheckMarketDatabase: RoomDatabase() {
+abstract class CheckMarketDatabase : RoomDatabase() {
     abstract fun marketItemDao(): MarketItemDao
 }

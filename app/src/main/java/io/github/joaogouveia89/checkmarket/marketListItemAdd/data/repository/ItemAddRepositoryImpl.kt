@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class ItemAddRepositoryImpl @Inject constructor(
     private val localDataSource: ItemAddLocalDataSource
-): ItemAddRepository {
+) : ItemAddRepository {
     override suspend fun saveItem(item: MarketItem) = localDataSource.saveItem(item)
     override suspend fun fetchItems() = localDataSource.fetchItems()
 

@@ -90,9 +90,11 @@ class ItemCreateUseCaseTest {
 
     @Test
     fun `when save item returns validation errors`() = runTest {
-        coEvery { repository.saveItem(itemDomainModel) } returns flowOf(ItemCreateStatus.ValidationErrors(
-            validationErrors
-        ))
+        coEvery { repository.saveItem(itemDomainModel) } returns flowOf(
+            ItemCreateStatus.ValidationErrors(
+                validationErrors
+            )
+        )
 
         val response = useCase.saveItem(itemUiModel)
 

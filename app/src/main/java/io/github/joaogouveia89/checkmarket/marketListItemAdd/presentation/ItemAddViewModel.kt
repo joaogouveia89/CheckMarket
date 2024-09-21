@@ -38,9 +38,11 @@ class ItemAddViewModel @Inject constructor(
                     }
                 }
             }
+
             is ItemAddStatus.Error -> {
 
             }
+
             is ItemAddStatus.Loading -> {
 
             }

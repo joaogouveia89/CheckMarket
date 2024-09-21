@@ -344,6 +344,7 @@ private fun MarketListItemAddContentInvalidNamePreview() {
         )
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 private fun MarketListItemAddContentInvalidPricePreview() {
@@ -371,6 +372,7 @@ private fun MarketListItemAddContentInvalidPricePreview() {
         )
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 private fun MarketListItemAddContentInvalidQuantityPreview() {

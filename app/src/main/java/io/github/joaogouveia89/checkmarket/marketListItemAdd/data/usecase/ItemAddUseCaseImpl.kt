@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class ItemAddUseCaseImpl @Inject constructor(
     private val repository: ItemAddRepository
-): ItemAddUseCase {
+) : ItemAddUseCase {
     override suspend fun saveItem(item: ItemAddSaveUiModel): Flow<ItemAddStatus> =
         repository.saveItem(item.asMarketItem())
 

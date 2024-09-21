@@ -4,7 +4,7 @@ import io.github.joaogouveia89.checkmarket.core.validation.Validation
 
 private const val PRICE_REGEX = "^\\d+(\\.\\d{1,2})?\$"
 
-class PriceValidation(private val price: String): Validation {
+class PriceValidation(private val price: String) : Validation {
     override fun isValid(): Boolean {
         if (price.isEmpty()) return false
 
