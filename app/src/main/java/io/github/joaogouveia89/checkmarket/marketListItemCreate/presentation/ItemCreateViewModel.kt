@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -74,10 +75,7 @@ class ItemCreateViewModel @Inject constructor(
 
     private fun saveItem(item: ItemCreateSaveUiModel) {
         viewModelScope.launch {
-            itemCreateUseCase.saveItem(item)
-                .collectLatest { status ->
-                    saveItemState.emit(status)
-                }
+            saveItemState.emitAll(itemCreateUseCase.saveItem(item))
         }
     }
 }

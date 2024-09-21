@@ -1,8 +1,9 @@
-package io.github.joaogouveia89.checkmarket.marketListemItemCreate
+package io.github.joaogouveia89.checkmarket.itemCreate
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
+import io.github.joaogouveia89.checkmarket.MainDispatcherRule
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository.ItemCreateStatus
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.usecase.ItemCreateUseCase
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateEvent
@@ -11,12 +12,10 @@ import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.mod
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import io.mockk.junit4.MockKRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -30,12 +29,16 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class ItemCreateViewModelTest {
+
     @get:Rule
-    val mockkRule = MockKRule(this)
+    val mainDispatcherRule = MainDispatcherRule()
 
     // Mocked dependencies
     @MockK(relaxed = true)
     lateinit var itemCreateUseCase: ItemCreateUseCase
+
+    @MockK(relaxed = true)
+    lateinit var item: ItemCreateSaveUiModel
 
     private lateinit var viewModel: ItemCreateViewModel
 
@@ -47,11 +50,9 @@ class ItemCreateViewModelTest {
         viewModel = ItemCreateViewModel(itemCreateUseCase, SavedStateHandle())
     }
 
-    @Test
-    fun `test saveItem - success scenario`() = runTest {
-        // Arrange
-        val item = ItemCreateSaveUiModel(name = "Apple", price = "1.50", quantity = "5")
 
+    @Test
+    fun `when save item returns a success state`() = runTest {
         coEvery { itemCreateUseCase.saveItem(item) } returns flowOf(ItemCreateStatus.Success(1L))
 
         viewModel.dispatch(ItemCreateEvent.SaveItem(item))
@@ -61,6 +62,21 @@ class ItemCreateViewModelTest {
             awaitItem()
             // Second emission: success state
             assertThat(awaitItem().isSaved).isTrue()
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `when save item returns an error state`() = runTest {
+        coEvery { itemCreateUseCase.saveItem(item) } returns flowOf(ItemCreateStatus.Error(0))
+
+        viewModel.dispatch(ItemCreateEvent.SaveItem(item))
+
+        // Assert
+        viewModel.uiState.test {
+            awaitItem()
+            // Second emission: error state
+            assertThat(awaitItem().errorRes).isNotNull()
             cancelAndIgnoreRemainingEvents()
         }
     }

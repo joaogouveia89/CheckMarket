@@ -145,7 +145,9 @@ fun ItemCreateContent(
             // Category Selection
             CategorySelection(
                 selected = selectedCategory,
-                onCategorySelected = { selectedCategory = it }
+                onCategorySelected = {
+                    selectedCategory = it
+                }
             )
 
             if (uiState.isLoading) {
