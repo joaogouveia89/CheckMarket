@@ -13,12 +13,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.joaogouveia89.checkmarket.R
+import io.github.joaogouveia89.checkmarket.core.model.MarketItem
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 
 @Composable
 fun ItemAddContent(
     modifier: Modifier = Modifier,
     query: String,
+    isLoading: Boolean,
     matchItems: List<MatchItem>,
     onItemSelect: (MatchItem) -> Unit
 ) {
@@ -37,6 +39,7 @@ fun ItemAddContent(
         } else {
             MatchItemsList(
                 matchItems = matchItems,
+                isLoading = isLoading,
                 onItemSelect = { matchItem ->
                     val item = if (matchItem.id == NEW_ITEM_ID) {
                         matchItem.copy(name = query)

@@ -23,6 +23,7 @@ import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 fun MatchItemsList(
     modifier: Modifier = Modifier,
     matchItems: List<MatchItem>,
+    isLoading: Boolean,
     onItemSelect: (MatchItem) -> Unit
 ) {
 
@@ -30,6 +31,8 @@ fun MatchItemsList(
         id = NEW_ITEM_ID,
         name = stringResource(id = R.string.new_item)
     )
+
+    println("JOAODEBUG::isLoading = $isLoading")
 
     LazyColumn(
         modifier = modifier
@@ -55,6 +58,7 @@ fun MatchItemsList(
             }
 
         }
+
         items(matchItems.size) {
             MatchItem(
                 onItemSelect = onItemSelect,
@@ -97,6 +101,7 @@ private fun MatchItemsListPreview() {
                 id = 2,
                 name = "Macarrão"
             )
-        )
+        ),
+        isLoading = false
     ) {}
 }

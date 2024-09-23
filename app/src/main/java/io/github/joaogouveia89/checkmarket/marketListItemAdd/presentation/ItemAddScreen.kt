@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import io.github.joaogouveia89.checkmarket.core.presentation.topBars.CheckMarketSearchAppBar
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddState
 
 internal const val NEW_ITEM_ID = -1
 
@@ -19,7 +20,7 @@ fun ItemAddScreen(
     onNavigateBack: () -> Unit,
     onItemSelect: (MatchItem) -> Unit,
     onNewQuery: (String) -> Unit,
-    matchItems: List<MatchItem> = emptyList()
+    uiState: ItemAddState
 ) {
     var query by rememberSaveable { mutableStateOf("") }
 
@@ -40,7 +41,8 @@ fun ItemAddScreen(
             modifier = Modifier
                 .padding(paddingValues),
             query = query,
-            matchItems = matchItems,
+            isLoading = uiState.isLoading,
+            matchItems = uiState.matchItems,
             onItemSelect = onItemSelect
         )
     }
@@ -53,7 +55,7 @@ private fun MarketListItemAddScreenPreview() {
     ItemAddScreen(
         onNavigateBack = {},
         onItemSelect = {},
-        matchItems = listOf(),
+        uiState = ItemAddState(),
         onNewQuery = {}
     )
 }

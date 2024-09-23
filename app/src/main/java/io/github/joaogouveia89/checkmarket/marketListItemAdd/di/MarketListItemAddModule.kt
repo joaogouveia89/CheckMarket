@@ -11,6 +11,7 @@ import io.github.joaogouveia89.checkmarket.marketListItemAdd.data.usecase.ItemAd
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.ItemAddRepository
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.source.ItemAddLocalDataSource
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.ItemAddUseCase
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Singleton
 
 
@@ -29,7 +30,10 @@ class MarketListItemAddModule {
 
     @Provides
     @Singleton
-    fun provideItemAddUseCase(repository: ItemAddRepository): ItemAddUseCase =
-        ItemAddUseCaseImpl(repository)
+    fun provideItemAddUseCase(
+        repository: ItemAddRepository,
+        scope: CoroutineScope
+    ): ItemAddUseCase =
+        ItemAddUseCaseImpl(repository, scope)
 
 }

@@ -13,6 +13,7 @@ import androidx.navigation.navArgument
 import io.github.joaogouveia89.checkmarket.history.presentation.HistoryScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListScreen
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddEvent
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddScreen
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddViewModel
 import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateEvent
@@ -48,20 +49,7 @@ fun NavigationGraph(navController: NavHostController) {
         composable(MARKET_LIST_ITEM_ADD_SCREEN_ROUTE) {
             val viewModel: ItemAddViewModel = hiltViewModel()
 
-            val resultList = listOf(
-                MatchItem(
-                    id = 0,
-                    name = "Arroz"
-                ),
-                MatchItem(
-                    id = 1,
-                    name = "Feijão"
-                ),
-                MatchItem(
-                    id = 2,
-                    name = "Macarrão"
-                )
-            ) // Temporary, it will come from view model
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
             ItemAddScreen(
                 onNavigateBack = { navController.popBackStack() },
@@ -77,8 +65,8 @@ fun NavigationGraph(navController: NavHostController) {
                         navController.navigate(MARKET_LIST_ITEM_ADD_SCREEN_ROUTE)
                     }
                 },
-                onNewQuery = { },
-                matchItems = resultList
+                onNewQuery = { viewModel.dispatch(ItemAddEvent.UpdateQuery(it)) },
+                uiState = uiState
             )
         }
 
