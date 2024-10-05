@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.FetchItemsStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.ItemAddUseCase
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.QuerySimilarityEvaluationStatus
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddContentState
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
@@ -14,7 +16,6 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 internal sealed class ItemAddEvent {
@@ -29,29 +30,21 @@ class ItemAddViewModel @Inject constructor(
     private val allItemsFetchState = MutableStateFlow<FetchItemsStatus>(FetchItemsStatus.Idle)
     private val query = MutableStateFlow("")
     private val showErrorBar: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val queryHasChanged = AtomicBoolean(false)
+    private val querySimilarityEvaluationStatus: MutableStateFlow<QuerySimilarityEvaluationStatus> =
+        MutableStateFlow(QuerySimilarityEvaluationStatus.Idle)
 
     val uiState: StateFlow<ItemAddState> = combine(
         allItemsFetchState,
+        querySimilarityEvaluationStatus,
         query
-    ) { fetchItemsState, newQuery ->
-        val state = when (fetchItemsState) {
-            is FetchItemsStatus.Loading -> { ItemAddState(isLoading = true) }
-            is FetchItemsStatus.Error -> ItemAddState(
-                errorRes = fetchItemsState.messageRes,
-                showError = true
-            )
+    ) { fetchItemsState, similarityEvaluationStatus, newQuery ->
 
-            is FetchItemsStatus.OnNewList -> {
-                val items = if (newQuery.isNotEmpty()) {
-                    itemAddUseCase.evaluateQuerySimilarity(fetchItemsState.items, newQuery)
-                } else listOf()
+        val querySimilarityItemAddState =
+            handleQuerySimilarityEvaluationStatus(similarityEvaluationStatus)
+        val fetchItemsAndQueryStates = handleFetchItemsAndQueryStates(fetchItemsState, newQuery)
 
-                ItemAddState(matchItems = items)
-            }
+        val state = querySimilarityItemAddState ?: fetchItemsAndQueryStates
 
-            is FetchItemsStatus.Idle -> ItemAddState()
-        }
         if (state.showError && !showErrorBar.value) {
             state.copy(showError = false)
         } else {
@@ -62,6 +55,51 @@ class ItemAddViewModel @Inject constructor(
         started = WhileSubscribed(),
         initialValue = ItemAddState()
     )
+
+    private suspend fun handleFetchItemsAndQueryStates(
+        fetchItemsState: FetchItemsStatus,
+        newQuery: String
+    ) = when (fetchItemsState) {
+        is FetchItemsStatus.Loading -> {
+            ItemAddState(itemAddItemContentState = ItemAddContentState.LOADING_ALL_ITEMS)
+        }
+
+        is FetchItemsStatus.Error -> ItemAddState(
+            errorRes = fetchItemsState.messageRes,
+            showError = true
+        )
+
+        is FetchItemsStatus.OnNewList -> {
+            if (newQuery.isNotEmpty()) {
+                querySimilarityEvaluationStatus.emitAll(
+                    itemAddUseCase.evaluateQuerySimilarity(
+                        fetchItemsState.items,
+                        newQuery
+                    )
+                )
+                ItemAddState(
+                    itemAddItemContentState = ItemAddContentState.LOADING_MATCH_ITEMS
+                )
+            } else ItemAddState(
+                itemAddItemContentState = ItemAddContentState.NO_QUERY_TYPED
+            )
+
+        }
+
+        is FetchItemsStatus.Idle -> ItemAddState()
+    }
+
+    private fun handleQuerySimilarityEvaluationStatus(similarityEvaluationStatus: QuerySimilarityEvaluationStatus): ItemAddState? =
+        when (similarityEvaluationStatus) {
+            is QuerySimilarityEvaluationStatus.Idle -> null
+            is QuerySimilarityEvaluationStatus.Loading -> ItemAddState(itemAddItemContentState = ItemAddContentState.LOADING_MATCH_ITEMS)
+            is QuerySimilarityEvaluationStatus.Success -> {
+                ItemAddState(
+                    matchItems = similarityEvaluationStatus.items,
+                    itemAddItemContentState = ItemAddContentState.MATCH_ITEMS_EVALUATED
+                )
+            }
+        }
 
 
     // TODO READ IT https://medium.com/@a.poplawski96/implement-modern-search-functionality-on-android-with-compose-mvvm-clean-architecture-junit5-61cbbee963ba
@@ -75,7 +113,8 @@ class ItemAddViewModel @Inject constructor(
     }
 
     private fun updateQuery(newQuery: String) {
-        this.query.update { newQuery }
+        query.update { newQuery }
+        querySimilarityEvaluationStatus.update { QuerySimilarityEvaluationStatus.Idle }
     }
 
     init {

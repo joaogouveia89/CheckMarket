@@ -12,5 +12,5 @@ interface ItemAddUseCase {
     suspend fun evaluateQuerySimilarity(
         items: List<MatchItem>,
         query: String
-    ): List<MatchItem>
+    ): Flow<QuerySimilarityEvaluationStatus>
 }

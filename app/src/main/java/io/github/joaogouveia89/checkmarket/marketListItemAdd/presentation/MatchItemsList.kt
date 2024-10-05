@@ -1,12 +1,14 @@
 package io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -56,15 +58,27 @@ fun MatchItemsList(
                     contentDescription = stringResource(id = R.string.add_new_item)
                 )
             }
-
         }
 
-        items(matchItems.size) {
-            MatchItem(
-                onItemSelect = onItemSelect,
-                matches = matchItems,
-                it
-            )
+        if(isLoading){
+            item {
+                Row(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+        }else{
+            items(matchItems.size) {
+                MatchItem(
+                    onItemSelect = onItemSelect,
+                    matches = matchItems,
+                    it
+                )
+            }
         }
     }
 }
@@ -103,5 +117,27 @@ private fun MatchItemsListPreview() {
             )
         ),
         isLoading = false
+    ) {}
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MatchItemsListLoadingPreview() {
+    MatchItemsList(
+        matchItems = listOf(
+            MatchItem(
+                id = 0,
+                name = "Arroz"
+            ),
+            MatchItem(
+                id = 1,
+                name = "Feijão"
+            ),
+            MatchItem(
+                id = 2,
+                name = "Macarrão"
+            )
+        ),
+        isLoading = true
     ) {}
 }

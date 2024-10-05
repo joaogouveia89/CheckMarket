@@ -40,10 +40,15 @@ fun ItemAddScreen(
         ItemAddContent(
             modifier = Modifier
                 .padding(paddingValues),
-            query = query,
-            isLoading = uiState.isLoading,
+            itemAddContentState = uiState.itemAddItemContentState,
             matchItems = uiState.matchItems,
-            onItemSelect = onItemSelect
+            onItemSelect = { matchItem ->
+                val item = if (matchItem.id == NEW_ITEM_ID) {
+                    matchItem.copy(name = query)
+                } else matchItem
+
+                onItemSelect(item)
+            }
         )
     }
 }
