@@ -1,7 +1,7 @@
 package io.github.joaogouveia89.checkmarket.core.presentation.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -13,7 +13,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import io.github.joaogouveia89.checkmarket.history.presentation.HistoryScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListScreen
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddEvent
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddScreen
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddViewModel
@@ -49,8 +48,13 @@ fun NavigationGraph(navController: NavHostController) {
 
         composable(MARKET_LIST_ITEM_ADD_SCREEN_ROUTE) {
             val viewModel: ItemAddViewModel = hiltViewModel()
-
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            LaunchedEffect(uiState.isSaved) {
+                if (uiState.isSaved) {
+                    navController.popBackStack()
+                }
+            }
 
             ItemAddScreen(
                 onNavigateBack = { navController.popBackStack() },
@@ -65,7 +69,6 @@ fun NavigationGraph(navController: NavHostController) {
                         viewModel.dispatch(ItemAddEvent.SaveItem(item))
                     }
                 },
-                onItemSavingSuccess = { navController.popBackStack() },
                 onNewQuery = { viewModel.dispatch(ItemAddEvent.UpdateQuery(it)) },
                 uiState = uiState
             )

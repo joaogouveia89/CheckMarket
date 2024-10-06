@@ -1,6 +1,5 @@
 package io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,11 +16,9 @@ import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 internal sealed class ItemAddEvent {
@@ -39,25 +36,30 @@ class ItemAddViewModel @Inject constructor(
     private val showErrorBar: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val querySimilarityEvaluationStatus: MutableStateFlow<QuerySimilarityEvaluationStatus> =
         MutableStateFlow(QuerySimilarityEvaluationStatus.Idle)
-    private val itemAddSaveItemState: MutableStateFlow<ItemAddSaveItemState> = MutableStateFlow(ItemAddSaveItemState.Idle)
+    private val itemAddSaveItemState: MutableStateFlow<ItemAddSaveItemState> =
+        MutableStateFlow(ItemAddSaveItemState.Idle)
 
 
     private val itemsEvaluationState = combine(
         allItemsFetchState,
         query
-    ){ fetchState, newQuery ->
+    ) { fetchState, newQuery ->
         handleFetchItemsAndQueryStates(fetchState, newQuery)
     }
 
     val uiState: StateFlow<ItemAddState> = combine(
         itemsEvaluationState,
         querySimilarityEvaluationStatus,
-    ) { itemsEvaluationState, similarityEvaluationStatus ->
-        
+        itemAddSaveItemState
+    ) { itemsEvaluationState, similarityEvaluationStatus, itemAddSaveItemState ->
+
         val querySimilarityItemAddState =
             handleQuerySimilarityEvaluationStatus(similarityEvaluationStatus)
 
-        val state = querySimilarityItemAddState ?: itemsEvaluationState
+        val state = handleItemAddSaveItemState(
+            itemAddSaveItemState = itemAddSaveItemState,
+            itemAddState = querySimilarityItemAddState ?: itemsEvaluationState
+        )
 
         if (state.showError && !showErrorBar.value) {
             state.copy(showError = false)
@@ -69,6 +71,18 @@ class ItemAddViewModel @Inject constructor(
         started = WhileSubscribed(),
         initialValue = ItemAddState()
     )
+
+    private fun handleItemAddSaveItemState(
+        itemAddSaveItemState: ItemAddSaveItemState,
+        itemAddState: ItemAddState
+    ): ItemAddState = when (itemAddSaveItemState) {
+        is ItemAddSaveItemState.Idle, ItemAddSaveItemState.Loading -> itemAddState
+        is ItemAddSaveItemState.Success -> itemAddState.copy(isSaved = true)
+        is ItemAddSaveItemState.Error -> itemAddState.copy(
+            errorRes = itemAddSaveItemState.messageRes,
+            showError = true
+        )
+    }
 
     private suspend fun handleFetchItemsAndQueryStates(
         fetchItemsState: FetchItemsStatus,
@@ -105,7 +119,7 @@ class ItemAddViewModel @Inject constructor(
     }
 
     private fun handleQuerySimilarityEvaluationStatus(similarityEvaluationStatus: QuerySimilarityEvaluationStatus): ItemAddState? =
-        if(query.value.isEmpty()) null
+        if (query.value.isEmpty()) null
         else when (similarityEvaluationStatus) {
             is QuerySimilarityEvaluationStatus.Idle -> null
             is QuerySimilarityEvaluationStatus.Loading -> ItemAddState(itemAddItemContentState = ItemAddContentState.LOADING_MATCH_ITEMS)

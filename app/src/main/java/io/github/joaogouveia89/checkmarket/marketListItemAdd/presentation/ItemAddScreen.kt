@@ -20,7 +20,6 @@ fun ItemAddScreen(
     onNavigateBack: () -> Unit,
     onNewQuery: (String) -> Unit,
     onItemSelect: (MatchItem) -> Unit,
-    onItemSavingSuccess: () -> Unit,
     uiState: ItemAddState
 ) {
     var query by rememberSaveable { mutableStateOf("") }
@@ -61,7 +60,6 @@ private fun MarketListItemAddScreenPreview() {
     ItemAddScreen(
         onNavigateBack = {},
         onItemSelect = {},
-        onItemSavingSuccess = {},
         uiState = ItemAddState(),
         onNewQuery = {}
     )

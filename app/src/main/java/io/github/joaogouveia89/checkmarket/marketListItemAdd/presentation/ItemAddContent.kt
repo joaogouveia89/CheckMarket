@@ -1,6 +1,5 @@
 package io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -40,12 +39,11 @@ fun ItemAddContent(
             .fillMaxSize(),
         contentAlignment = contentAlignment
     ) {
-
-        Log.i("JOAODEBUG", "ItemAddContent: $itemAddContentState")
         when (itemAddContentState) {
             ItemAddContentState.NO_QUERY_TYPED -> {
                 NoQueryTypedMessage()
             }
+
             ItemAddContentState.LOADING_MATCH_ITEMS, ItemAddContentState.MATCH_ITEMS_EVALUATED -> {
                 MatchItemsList(
                     matchItems = matchItems,
@@ -53,6 +51,7 @@ fun ItemAddContent(
                     onItemSelect = onItemSelect
                 )
             }
+
             else -> {
                 CircularProgressIndicator()
             }
