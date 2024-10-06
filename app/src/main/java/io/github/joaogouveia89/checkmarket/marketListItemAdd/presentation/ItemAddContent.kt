@@ -1,5 +1,6 @@
 package io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.joaogouveia89.checkmarket.R
+import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddContentState
 
@@ -39,6 +41,7 @@ fun ItemAddContent(
         contentAlignment = contentAlignment
     ) {
 
+        Log.i("JOAODEBUG", "ItemAddContent: $itemAddContentState")
         when (itemAddContentState) {
             ItemAddContentState.NO_QUERY_TYPED -> {
                 NoQueryTypedMessage()
@@ -58,9 +61,9 @@ fun ItemAddContent(
 }
 
 private val sampleMatchItems = listOf( // Sample MatchItems for previews
-    MatchItem(id = 1, name = "Apple"),
-    MatchItem(id = 2, name = "Banana"),
-    MatchItem(id = 3, name = "Orange")
+    MatchItem(id = 1, name = "Apple", category = MarketItemCategory.FOOD),
+    MatchItem(id = 2, name = "Banana", category = MarketItemCategory.FOOD),
+    MatchItem(id = 3, name = "Orange", category = MarketItemCategory.FOOD)
 )
 
 @Composable

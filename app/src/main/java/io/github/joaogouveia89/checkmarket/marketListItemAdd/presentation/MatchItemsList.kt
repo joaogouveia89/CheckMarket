@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.joaogouveia89.checkmarket.R
+import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 
 @Composable
@@ -31,10 +32,9 @@ fun MatchItemsList(
 
     val newItem = MatchItem(
         id = NEW_ITEM_ID,
-        name = stringResource(id = R.string.new_item)
+        name = stringResource(id = R.string.new_item),
+        category = null
     )
-
-    println("JOAODEBUG::isLoading = $isLoading")
 
     LazyColumn(
         modifier = modifier
@@ -105,15 +105,18 @@ private fun MatchItemsListPreview() {
         matchItems = listOf(
             MatchItem(
                 id = 0,
-                name = "Arroz"
+                name = "Arroz",
+                category = MarketItemCategory.FOOD
             ),
             MatchItem(
                 id = 1,
-                name = "Feijão"
+                name = "Feijão",
+                category = MarketItemCategory.FOOD
             ),
             MatchItem(
                 id = 2,
-                name = "Macarrão"
+                name = "Macarrão",
+                category = MarketItemCategory.FOOD
             )
         ),
         isLoading = false
@@ -127,15 +130,18 @@ private fun MatchItemsListLoadingPreview() {
         matchItems = listOf(
             MatchItem(
                 id = 0,
-                name = "Arroz"
+                name = "Arroz",
+                category = MarketItemCategory.FOOD
             ),
             MatchItem(
                 id = 1,
-                name = "Feijão"
+                name = "Feijão",
+                category = MarketItemCategory.FOOD
             ),
             MatchItem(
                 id = 2,
-                name = "Macarrão"
+                name = "Macarrão",
+                category = MarketItemCategory.FOOD
             )
         ),
         isLoading = true

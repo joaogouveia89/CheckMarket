@@ -7,7 +7,7 @@ import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.model.
 data class MatchItem(
     val id: Int,
     val name: String,
-    val category: MarketItemCategory
+    val category: MarketItemCategory?
 )
 
 fun List<MarketItem>.asMatchItems() =
@@ -26,5 +26,5 @@ fun MatchItem.asItemAddSaveUiModel() =
         name = name,
         price = "0.0",
         quantity = "0",
-        category = category
+        category = category ?: MarketItemCategory.FOOD
     )
