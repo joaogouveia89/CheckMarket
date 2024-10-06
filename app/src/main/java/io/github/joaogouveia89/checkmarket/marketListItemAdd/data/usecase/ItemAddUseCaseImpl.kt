@@ -7,6 +7,7 @@ import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.Quer
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.model.ItemAddSaveUiModel
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.model.asMarketItem
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddSaveItemState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -19,7 +20,7 @@ class ItemAddUseCaseImpl @Inject constructor(
     private val repository: ItemAddRepository,
     private val iOScope: CoroutineScope
 ) : ItemAddUseCase {
-    override suspend fun saveItem(item: ItemAddSaveUiModel): Flow<FetchItemsStatus> =
+    override suspend fun saveItem(item: ItemAddSaveUiModel): Flow<ItemAddSaveItemState> =
         repository.saveItem(item.asMarketItem())
 
     override suspend fun fetchItems(): Flow<FetchItemsStatus> =

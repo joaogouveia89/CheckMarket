@@ -18,8 +18,9 @@ internal const val NEW_ITEM_ID = -1
 @Composable
 fun ItemAddScreen(
     onNavigateBack: () -> Unit,
-    onItemSelect: (MatchItem) -> Unit,
     onNewQuery: (String) -> Unit,
+    onItemSelect: (MatchItem) -> Unit,
+    onItemSavingSuccess: () -> Unit,
     uiState: ItemAddState
 ) {
     var query by rememberSaveable { mutableStateOf("") }
@@ -60,6 +61,7 @@ private fun MarketListItemAddScreenPreview() {
     ItemAddScreen(
         onNavigateBack = {},
         onItemSelect = {},
+        onItemSavingSuccess = {},
         uiState = ItemAddState(),
         onNewQuery = {}
     )

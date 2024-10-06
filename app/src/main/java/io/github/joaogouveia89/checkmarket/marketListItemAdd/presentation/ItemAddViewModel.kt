@@ -6,7 +6,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.FetchItemsStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.ItemAddUseCase
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.QuerySimilarityEvaluationStatus
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.asItemAddSaveUiModel
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddContentState
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddSaveItemState
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
@@ -20,6 +23,7 @@ import javax.inject.Inject
 
 internal sealed class ItemAddEvent {
     data class UpdateQuery(val query: String) : ItemAddEvent()
+    data class SaveItem(val item: MatchItem) : ItemAddEvent()
     data object DismissError : ItemAddEvent()
 }
 
@@ -33,10 +37,12 @@ class ItemAddViewModel @Inject constructor(
     private val querySimilarityEvaluationStatus: MutableStateFlow<QuerySimilarityEvaluationStatus> =
         MutableStateFlow(QuerySimilarityEvaluationStatus.Idle)
 
+    private val itemAddSaveItemState: MutableStateFlow<ItemAddSaveItemState> = MutableStateFlow(ItemAddSaveItemState.Idle)
+
     val uiState: StateFlow<ItemAddState> = combine(
         allItemsFetchState,
         querySimilarityEvaluationStatus,
-        query
+        query,
     ) { fetchItemsState, similarityEvaluationStatus, newQuery ->
 
         val querySimilarityItemAddState =
@@ -108,7 +114,14 @@ class ItemAddViewModel @Inject constructor(
     internal fun dispatch(event: ItemAddEvent) {
         when (event) {
             is ItemAddEvent.UpdateQuery -> updateQuery(event.query)
+            is ItemAddEvent.SaveItem -> saveItem(event)
             is ItemAddEvent.DismissError -> {}
+        }
+    }
+
+    private fun saveItem(event: ItemAddEvent.SaveItem) {
+        viewModelScope.launch {
+            itemAddSaveItemState.emitAll(itemAddUseCase.saveItem(event.item.asItemAddSaveUiModel()))
         }
     }
 

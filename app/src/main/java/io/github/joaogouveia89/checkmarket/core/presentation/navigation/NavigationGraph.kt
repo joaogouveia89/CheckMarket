@@ -1,5 +1,6 @@
 package io.github.joaogouveia89.checkmarket.core.presentation.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -61,10 +62,10 @@ fun NavigationGraph(navController: NavHostController) {
                             )
                         )
                     } else {
-                        // TODO: Call view model to save item and navigate back
-                        navController.navigate(MARKET_LIST_ITEM_ADD_SCREEN_ROUTE)
+                        viewModel.dispatch(ItemAddEvent.SaveItem(item))
                     }
                 },
+                onItemSavingSuccess = { navController.popBackStack() },
                 onNewQuery = { viewModel.dispatch(ItemAddEvent.UpdateQuery(it)) },
                 uiState = uiState
             )

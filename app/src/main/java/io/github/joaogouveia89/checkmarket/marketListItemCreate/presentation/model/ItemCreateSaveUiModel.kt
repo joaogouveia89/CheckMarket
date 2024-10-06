@@ -8,8 +8,8 @@ import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.Ite
 data class ItemCreateSaveUiModel(
     val id: Long = -1,
     val name: String = "",
-    val price: String = "",
-    val quantity: String = "",
+    val price: String = "0",
+    val quantity: String = "0",
     val category: MarketItemCategory = MarketItemCategory.FOOD
 )
 
