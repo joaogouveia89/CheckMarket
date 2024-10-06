@@ -39,7 +39,7 @@ class ItemAddLocalDataSourceImpl @Inject constructor(
 
         try {
             val items = marketItemDao
-                .fetchAll()
+                .fetchAllUnique()
                 .map { it.asMarketItem()}
                 .asMatchItems()
 

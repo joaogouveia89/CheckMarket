@@ -9,8 +9,8 @@ import io.github.joaogouveia89.checkmarket.core.data.local.entity.MarketItemEnti
 @Dao
 interface MarketItemDao {
 
-    @Query("SELECT * FROM MarketItem")
-    suspend fun fetchAll(): List<MarketItemEntity>
+    @Query("SELECT * FROM MarketItem GROUP BY name")
+    suspend fun fetchAllUnique(): List<MarketItemEntity>
 
     @Insert(onConflict = OnConflictStrategy.NONE)
     suspend fun insert(marketItem: MarketItemEntity): Long
