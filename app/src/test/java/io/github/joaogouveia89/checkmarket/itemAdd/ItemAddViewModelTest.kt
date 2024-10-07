@@ -1,5 +1,6 @@
 package io.github.joaogouveia89.checkmarket.itemAdd
 
+import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import io.github.joaogouveia89.checkmarket.MainDispatcherRule
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
@@ -38,12 +39,8 @@ class ItemAddViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
 
-    private val testScope = CoroutineScope(testDispatcher)
-
     @MockK(relaxed = true)
-    lateinit var itemAddRepository: ItemAddRepository
-
-    private lateinit var itemAddUseCase: ItemAddUseCase
+    lateinit var itemAddUseCase: ItemAddUseCase
 
     private lateinit var viewModel: ItemAddViewModel
 
@@ -55,7 +52,7 @@ class ItemAddViewModelTest {
         // Use the TestDispatcher for coroutines
         Dispatchers.setMain(testDispatcher)
 
-        itemAddUseCase = ItemAddUseCaseImpl(itemAddRepository, testScope)
+        coEvery { itemAddUseCase.fetchItems() } returns flowOf(FetchItemsStatus.OnNewList(appleMatches))
 
         viewModel = ItemAddViewModel(itemAddUseCase)
     }
@@ -77,8 +74,6 @@ class ItemAddViewModelTest {
 
         val newQuery = "Apple"
 
-        coEvery { itemAddUseCase.fetchItems() } returns flowOf(FetchItemsStatus.OnNewList(appleMatches))
-
         coEvery { itemAddUseCase.evaluateQuerySimilarity(any(), any()) } returns flowOf(QuerySimilarityEvaluationStatus.Success(
             appleMatches
         ))
@@ -86,7 +81,10 @@ class ItemAddViewModelTest {
         viewModel.dispatch(ItemAddEvent.UpdateQuery(newQuery))
 
         testDispatcher.scheduler.advanceUntilIdle() // Let the coroutines finish
-        assertThat(viewModel.uiState.value.matchItems).isEqualTo(appleMatches)
+        viewModel.uiState.test {
+            awaitItem()
+            assertThat(awaitItem().matchItems).isEqualTo(appleMatches)
+        }
     }
 
 //    @Test
