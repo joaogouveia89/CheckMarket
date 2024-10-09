@@ -67,10 +67,8 @@ class ItemAddViewModelTest {
         assertEquals(initialState.itemAddItemContentState, ItemAddContentState.NO_QUERY_TYPED)
     }
 
-    // test not working
     @Test
     fun `query update should trigger the similarity evaluation`() = runTest {
-        // Mock the saveItem call in the use case
 
         val newQuery = "Apple"
 
@@ -80,43 +78,37 @@ class ItemAddViewModelTest {
 
         viewModel.dispatch(ItemAddEvent.UpdateQuery(newQuery))
 
-        testDispatcher.scheduler.advanceUntilIdle() // Let the coroutines finish
+        testDispatcher.scheduler.advanceUntilIdle()
         viewModel.uiState.test {
             awaitItem()
             assertThat(awaitItem().matchItems).isEqualTo(appleMatches)
         }
     }
 
-//    @Test
-//    fun `saveItem should trigger save item state change`() = runTest {
-//        // Mock the item to be saved
-//        val mockItem = MatchItem(id = 1, name = "Apple", category = MarketItemCategory.FOOD)
-//
-//        // Mock the saveItem call in the use case
-//        coEvery { itemAddUseCase.saveItem(any()) } returns flowOf(ItemAddSaveItemState.Success(mockItem.id.toLong()))
-//
-//        // Dispatch the SaveItem event
-//        viewModel.dispatch(ItemAddEvent.SaveItem(mockItem))
-//
-//        testDispatcher.scheduler.advanceUntilIdle() // Let the coroutines finish
-//
-//        // Check that the state reflects a successful save
-//        assertThat(viewModel.uiState.value.isSaved).isTrue()
-//    }
-//
-//    @Test
-//    fun `fetchItems should handle errors during fetching`() = runTest {
-//        // Mock the error state in fetchItems
-//        coEvery { itemAddUseCase.fetchItems() } returns flowOf(FetchItemsStatus.Error(messageRes = 123))
-//
-//        viewModel = ItemAddViewModel(itemAddUseCase)
-//
-//        testDispatcher.scheduler.advanceUntilIdle()
-//
-//        // Verify error state
-//        assertThat(viewModel.uiState.value.showError).isTrue()
-//        assertThat(viewModel.uiState.value.errorRes).isEqualTo(123)
-//    }
+    @Test
+    fun `saveItem should trigger save item state change`() = runTest {
+        // Mock the item to be saved
+        val mockItem = MatchItem(id = 1, name = "Apple", category = MarketItemCategory.FOOD)
+
+        // Mock the saveItem call in the use case
+        coEvery { itemAddUseCase.saveItem(any()) } returns flowOf(
+            ItemAddSaveItemState.Success(
+                mockItem.id.toLong()
+            )
+        )
+
+        // Dispatch the SaveItem event
+        viewModel.dispatch(ItemAddEvent.SaveItem(mockItem))
+
+        testDispatcher.scheduler.advanceUntilIdle() // Let the coroutines finish
+
+        viewModel.uiState.test {
+            awaitItem()
+            assertThat(awaitItem().isSaved).isTrue()
+        }
+    }
+
+    // TODO Error handling logic improvement
 
     @After
     fun tearDown() {

@@ -61,11 +61,7 @@ class ItemAddViewModel @Inject constructor(
             itemAddState = querySimilarityItemAddState ?: itemsEvaluationState
         )
 
-        if (state.showError && !showErrorBar.value) {
-            state.copy(showError = false)
-        } else {
-            state
-        }
+        state
     }.stateIn(
         scope = viewModelScope,
         started = WhileSubscribed(),
