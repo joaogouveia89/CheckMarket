@@ -91,4 +91,6 @@ object PreviewData {
             updatedAt = Clock.System.now()
         )
     )
+
+    val categorizedList = marketItemsList.groupBy { it.category }
 }
