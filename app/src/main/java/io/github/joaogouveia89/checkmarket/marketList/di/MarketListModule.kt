@@ -7,8 +7,10 @@ import dagger.hilt.components.SingletonComponent
 import io.github.joaogouveia89.checkmarket.core.data.local.dao.MarketItemDao
 import io.github.joaogouveia89.checkmarket.marketList.data.repository.MarketListRepositoryImpl
 import io.github.joaogouveia89.checkmarket.marketList.data.source.MarketListDataSourceImpl
+import io.github.joaogouveia89.checkmarket.marketList.data.usecase.MarketListUseCaseImpl
 import io.github.joaogouveia89.checkmarket.marketList.domain.repository.MarketListRepository
 import io.github.joaogouveia89.checkmarket.marketList.domain.source.MarketListDataSource
+import io.github.joaogouveia89.checkmarket.marketList.domain.usecase.MarketListUseCase
 import javax.inject.Singleton
 
 @Module
@@ -23,4 +25,9 @@ object MarketListModule {
     @Singleton
     fun provideMarketListRepository(marketListDataSource: MarketListDataSource): MarketListRepository =
         MarketListRepositoryImpl(marketListDataSource)
+
+    @Provides
+    @Singleton
+    fun provideMarketListUseCase(repository: MarketListRepository): MarketListUseCase =
+        MarketListUseCaseImpl(repository)
 }
