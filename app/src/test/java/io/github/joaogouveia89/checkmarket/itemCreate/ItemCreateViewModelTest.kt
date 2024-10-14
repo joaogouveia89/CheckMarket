@@ -4,11 +4,11 @@ import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import io.github.joaogouveia89.checkmarket.MainDispatcherRule
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository.ItemCreateStatus
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.usecase.ItemCreateUseCase
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateEvent
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateViewModel
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.model.ItemCreateSaveUiModel
+import io.github.joaogouveia89.checkmarket.itemCreate.domain.repository.ItemCreateStatus
+import io.github.joaogouveia89.checkmarket.itemCreate.domain.usecase.ItemCreateUseCase
+import io.github.joaogouveia89.checkmarket.itemCreate.presentation.ItemCreateEvent
+import io.github.joaogouveia89.checkmarket.itemCreate.presentation.ItemCreateViewModel
+import io.github.joaogouveia89.checkmarket.itemCreate.presentation.model.ItemCreateSaveUiModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

@@ -14,12 +14,12 @@ import androidx.navigation.navArgument
 import io.github.joaogouveia89.checkmarket.history.presentation.HistoryScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListViewModel
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddEvent
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddScreen
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddViewModel
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateEvent
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateScreen
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.ItemCreateViewModel
+import io.github.joaogouveia89.checkmarket.itemAdd.presentation.ItemAddEvent
+import io.github.joaogouveia89.checkmarket.itemAdd.presentation.ItemAddScreen
+import io.github.joaogouveia89.checkmarket.itemAdd.presentation.ItemAddViewModel
+import io.github.joaogouveia89.checkmarket.itemCreate.presentation.ItemCreateEvent
+import io.github.joaogouveia89.checkmarket.itemCreate.presentation.ItemCreateScreen
+import io.github.joaogouveia89.checkmarket.itemCreate.presentation.ItemCreateViewModel
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {

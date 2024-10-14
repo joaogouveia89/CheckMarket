@@ -7,7 +7,6 @@ import io.github.joaogouveia89.checkmarket.core.data.local.dao.MarketItemDao
 import io.github.joaogouveia89.checkmarket.core.data.local.mappers.asMarketItem
 import io.github.joaogouveia89.checkmarket.core.status.FetchItemsStatus
 import io.github.joaogouveia89.checkmarket.marketList.domain.source.MarketListDataSource
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.asMatchItems
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

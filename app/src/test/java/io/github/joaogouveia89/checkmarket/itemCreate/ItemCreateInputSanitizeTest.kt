@@ -1,7 +1,7 @@
 package io.github.joaogouveia89.checkmarket.itemCreate
 
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.data.usecase.sanitize
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.presentation.model.ItemCreateSaveUiModel
+import io.github.joaogouveia89.checkmarket.itemCreate.data.usecase.sanitize
+import io.github.joaogouveia89.checkmarket.itemCreate.presentation.model.ItemCreateSaveUiModel
 import junit.framework.TestCase.assertEquals
 import kotlin.test.Test
 

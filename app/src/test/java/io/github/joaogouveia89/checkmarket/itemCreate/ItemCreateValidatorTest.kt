@@ -2,9 +2,9 @@ package io.github.joaogouveia89.checkmarket.itemCreate
 
 import io.github.joaogouveia89.checkmarket.MainDispatcherRule
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.data.validation.ItemCreateValidator
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.model.ItemSaveDomainModel
-import io.github.joaogouveia89.checkmarket.marketListItemCreate.domain.repository.ItemCreateFields
+import io.github.joaogouveia89.checkmarket.itemCreate.data.validation.ItemCreateValidator
+import io.github.joaogouveia89.checkmarket.itemCreate.domain.model.ItemSaveDomainModel
+import io.github.joaogouveia89.checkmarket.itemCreate.domain.repository.ItemCreateFields
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
