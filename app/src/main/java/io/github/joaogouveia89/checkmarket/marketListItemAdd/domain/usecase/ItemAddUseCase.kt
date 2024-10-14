@@ -1,6 +1,6 @@
 package io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase
 
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.FetchItemsStatus
+import io.github.joaogouveia89.checkmarket.core.status.FetchItemsStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.model.ItemAddSaveUiModel
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddSaveItemState

@@ -1,6 +1,6 @@
 package io.github.joaogouveia89.checkmarket.marketListItemAdd.data.usecase
 
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.FetchItemsStatus
+import io.github.joaogouveia89.checkmarket.core.status.FetchItemsStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.ItemAddRepository
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.ItemAddUseCase
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.QuerySimilarityEvaluationStatus

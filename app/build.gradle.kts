@@ -10,6 +10,15 @@ android {
     namespace = "io.github.joaogouveia89.checkmarket"
     compileSdk = 34
 
+    packaging {
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+            )
+        )
+    }
+
     defaultConfig {
         applicationId = "io.github.joaogouveia89.checkmarket"
         minSdk = 24

@@ -3,7 +3,7 @@ package io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.FetchItemsStatus
+import io.github.joaogouveia89.checkmarket.core.status.FetchItemsStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.ItemAddUseCase
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.QuerySimilarityEvaluationStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem

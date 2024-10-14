@@ -9,6 +9,12 @@ import io.github.joaogouveia89.checkmarket.core.data.local.entity.MarketItemEnti
 @Dao
 interface MarketItemDao {
 
+    /*
+    * Fetch all items from today, and the older ones which are not bought yet
+     */
+    @Query("SELECT * FROM MarketItem WHERE (DATE(updatedAt) = DATE('now')) OR (DATE(updatedAt) = DATE('now')) and isBought = 0")
+    suspend fun fetchMarketList(): List<MarketItemEntity>
+
     @Query("SELECT * FROM MarketItem GROUP BY name")
     suspend fun fetchAllUnique(): List<MarketItemEntity>
 

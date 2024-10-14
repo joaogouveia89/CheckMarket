@@ -14,6 +14,7 @@ data class MarketItemEntity(
     val price: Double,
     val quantity: String,
     val category: MarketItemCategory,
+    val isBought: Boolean,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
 )

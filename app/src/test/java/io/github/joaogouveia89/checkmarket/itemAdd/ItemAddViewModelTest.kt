@@ -4,9 +4,7 @@ import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import io.github.joaogouveia89.checkmarket.MainDispatcherRule
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.data.usecase.ItemAddUseCaseImpl
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.FetchItemsStatus
-import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.repository.ItemAddRepository
+import io.github.joaogouveia89.checkmarket.core.status.FetchItemsStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.ItemAddUseCase
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.QuerySimilarityEvaluationStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
@@ -17,7 +15,6 @@ import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf

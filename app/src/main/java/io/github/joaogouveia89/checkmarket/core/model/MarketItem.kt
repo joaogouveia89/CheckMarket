@@ -12,6 +12,7 @@ data class MarketItem(
     val category: MarketItemCategory,
     val price: Double,
     val quantity: String,
+    val isBought: Boolean = false,
     val createdAt: LocalDateTime = Clock.System.now()
         .toLocalDateTime(TimeZone.currentSystemDefault()),
     val updatedAt: LocalDateTime = createdAt
@@ -22,6 +23,7 @@ fun MarketItem.asMarketItemEntity() = MarketItemEntity(
     price = price,
     quantity = quantity,
     category = category,
+    isBought = isBought,
     createdAt = createdAt,
     updatedAt = updatedAt
 )
