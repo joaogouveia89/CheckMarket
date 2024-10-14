@@ -34,4 +34,5 @@
     <string name="error_invalid_name">Invalid name</string>
     <string name="error_invalid_quantity">Invalid Quantity</string>
     <string name="error_fetching_items">Error on fetching items</string>
+    <string name="start_here">Start here!!!</string>
 </resources>

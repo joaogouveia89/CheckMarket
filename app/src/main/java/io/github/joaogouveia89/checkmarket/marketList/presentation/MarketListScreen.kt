@@ -6,14 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import io.github.joaogouveia89.checkmarket.R
+import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 import io.github.joaogouveia89.checkmarket.core.presentation.topBars.CheckMarketAppBar
 import io.github.joaogouveia89.checkmarket.marketList.presentation.components.MarketListContent
 import io.github.joaogouveia89.checkmarket.marketList.presentation.state.MarketListUiState
 
-// TODO: Add a FAB to redirects to add market item screen
 @Composable
 fun MarketListScreen(
     uiState: MarketListUiState,
+    onMarketListItemClick: (MarketItemCategory, itemIndex: Int) -> Unit,
     onNavigateToAddMarketItemClick: () -> Unit
 ) {
 
@@ -31,9 +32,7 @@ fun MarketListScreen(
             marketItemsList = uiState.items,
             isLoading = uiState.isLoading,
             paddingValues = paddingValues,
-            onItemClick = { category, index ->
-                println("Category: $category, Index: $index")
-            },
+            onItemClick = onMarketListItemClick,
             onNavigateToAddMarketItemClick = onNavigateToAddMarketItemClick
         )
     }
@@ -44,6 +43,7 @@ fun MarketListScreen(
 private fun MarketListScreenPreview() {
     MarketListScreen(
         uiState = MarketListUiState(),
+        onMarketListItemClick = {_, _ -> },
         onNavigateToAddMarketItemClick = {}
     )
 }

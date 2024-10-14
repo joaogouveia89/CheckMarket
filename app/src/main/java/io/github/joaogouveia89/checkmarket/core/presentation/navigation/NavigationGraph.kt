@@ -41,6 +41,9 @@ fun NavigationGraph(navController: NavHostController) {
 
             MarketListScreen(
                 uiState = uiState,
+                onMarketListItemClick = { category, itemIndex ->
+                    // TODO: Navigate to item edit screen
+                },
                 onNavigateToAddMarketItemClick = {
                     navController.navigate(MARKET_LIST_ITEM_ADD_SCREEN_ROUTE)
                 }
