@@ -4,9 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 
-// TODO: CHECK MOVIE APP TO IMPLEMENT THE ROOM DB AND DI
 @Entity(tableName = "MarketItem")
 data class MarketItemEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
@@ -15,8 +15,8 @@ data class MarketItemEntity(
     val quantity: String,
     val category: MarketItemCategory,
     val isBought: Boolean,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
+    val createdAt: Instant,
+    val updatedAt: Instant
 )
 
 
@@ -28,14 +28,14 @@ class MarketItemCategoryConverter {
     fun toCategory(categoryId: Int) = MarketItemCategory.entries.find { it.id == categoryId }
 }
 
-class LocalDateTimeConverter {
+class InstantConverter {
     @TypeConverter
-    fun fromLocalDateTime(dateTime: LocalDateTime): String {
+    fun fromLocalDateTime(dateTime: Instant): String {
         return dateTime.toString()
     }
 
     @TypeConverter
-    fun toLocalDateTime(dateTimeString: String): LocalDateTime {
-        return LocalDateTime.parse(dateTimeString)
+    fun toLocalDateTime(dateTimeString: String): Instant {
+        return Instant.parse(dateTimeString)
     }
 }

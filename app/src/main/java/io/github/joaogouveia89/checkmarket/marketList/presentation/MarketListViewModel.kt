@@ -24,10 +24,7 @@ class MarketListViewModel @Inject constructor(
         .map {
             when (it) {
                 is MarketListStatus.Loading -> MarketListUiState(isLoading = true)
-                is MarketListStatus.Success -> {
-                    MarketListUiState(items = it.items)
-                }
-
+                is MarketListStatus.Success -> MarketListUiState(items = it.items)
                 is MarketListStatus.Error -> MarketListUiState(
                     errorRes = it.messageRes,
                     showError = true

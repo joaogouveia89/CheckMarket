@@ -2,9 +2,7 @@ package io.github.joaogouveia89.checkmarket.core.model
 
 import io.github.joaogouveia89.checkmarket.core.data.local.entity.MarketItemEntity
 import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.Instant
 
 data class MarketItem(
     val id: Int? = null,
@@ -13,9 +11,8 @@ data class MarketItem(
     val price: Double,
     val quantity: String,
     val isBought: Boolean = false,
-    val createdAt: LocalDateTime = Clock.System.now()
-        .toLocalDateTime(TimeZone.currentSystemDefault()),
-    val updatedAt: LocalDateTime = createdAt
+    val createdAt: Instant = Clock.System.now(),
+    val updatedAt: Instant = createdAt
 )
 
 fun MarketItem.asMarketItemEntity() = MarketItemEntity(
