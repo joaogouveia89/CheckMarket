@@ -24,7 +24,6 @@ class MarketListDataSourceImpl @Inject constructor(
             val items = marketItemDao
                 .fetchMarketList()
                 .map { it.asMarketItem() }
-                .asMatchItems()
 
             emit(FetchItemsStatus.OnNewList(items))
         } catch (e: Exception) {

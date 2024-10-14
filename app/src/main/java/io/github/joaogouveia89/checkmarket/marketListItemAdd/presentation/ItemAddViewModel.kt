@@ -8,6 +8,7 @@ import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.Item
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.QuerySimilarityEvaluationStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.asItemAddSaveUiModel
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.asMatchItems
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddContentState
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddSaveItemState
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddState
@@ -97,7 +98,7 @@ class ItemAddViewModel @Inject constructor(
             if (newQuery.isNotEmpty()) {
                 querySimilarityEvaluationStatus.emitAll(
                     itemAddUseCase.evaluateQuerySimilarity(
-                        fetchItemsState.items,
+                        fetchItemsState.items.asMatchItems(),
                         newQuery
                     )
                 )

@@ -3,11 +3,13 @@ package io.github.joaogouveia89.checkmarket.itemAdd
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import io.github.joaogouveia89.checkmarket.MainDispatcherRule
+import io.github.joaogouveia89.checkmarket.core.model.MarketItem
 import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 import io.github.joaogouveia89.checkmarket.core.status.FetchItemsStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.ItemAddUseCase
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.domain.usecase.QuerySimilarityEvaluationStatus
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.MatchItem
+import io.github.joaogouveia89.checkmarket.marketListItemAdd.model.asMatchItems
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddEvent
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddViewModel
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.state.ItemAddContentState
@@ -41,7 +43,7 @@ class ItemAddViewModelTest {
 
     private lateinit var viewModel: ItemAddViewModel
 
-    private val appleMatches = listOf(MatchItem(id = 1, name = "Apple", category = MarketItemCategory.FOOD))
+    private val appleMatches = listOf(MarketItem(id = 1, name = "Apple", quantity = "1", price = 2.0, category = MarketItemCategory.FOOD))
 
     @Before
     fun setUp() {
@@ -70,7 +72,7 @@ class ItemAddViewModelTest {
         val newQuery = "Apple"
 
         coEvery { itemAddUseCase.evaluateQuerySimilarity(any(), any()) } returns flowOf(QuerySimilarityEvaluationStatus.Success(
-            appleMatches
+            appleMatches.asMatchItems()
         ))
 
         viewModel.dispatch(ItemAddEvent.UpdateQuery(newQuery))
@@ -78,7 +80,7 @@ class ItemAddViewModelTest {
         testDispatcher.scheduler.advanceUntilIdle()
         viewModel.uiState.test {
             awaitItem()
-            assertThat(awaitItem().matchItems).isEqualTo(appleMatches)
+            assertThat(awaitItem().matchItems).isEqualTo(appleMatches.asMatchItems())
         }
     }
 

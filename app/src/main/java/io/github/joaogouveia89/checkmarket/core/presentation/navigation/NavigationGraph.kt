@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import io.github.joaogouveia89.checkmarket.history.presentation.HistoryScreen
 import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListScreen
+import io.github.joaogouveia89.checkmarket.marketList.presentation.MarketListViewModel
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddEvent
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddScreen
 import io.github.joaogouveia89.checkmarket.marketListItemAdd.presentation.ItemAddViewModel
@@ -35,7 +36,11 @@ fun NavigationGraph(navController: NavHostController) {
                 }
             )
         ) {
+            val viewModel: MarketListViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
             MarketListScreen(
+                uiState = uiState,
                 onNavigateToAddMarketItemClick = {
                     navController.navigate(MARKET_LIST_ITEM_ADD_SCREEN_ROUTE)
                 }

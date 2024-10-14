@@ -41,7 +41,6 @@ class ItemAddLocalDataSourceImpl @Inject constructor(
             val items = marketItemDao
                 .fetchAllUnique()
                 .map { it.asMarketItem() }
-                .asMatchItems()
 
             emit(FetchItemsStatus.OnNewList(items))
         } catch (e: Exception) {
