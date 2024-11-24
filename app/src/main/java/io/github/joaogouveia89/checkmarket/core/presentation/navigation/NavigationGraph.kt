@@ -67,7 +67,7 @@ fun NavigationGraph(navController: NavHostController) {
             ItemAddScreen(
                 onNavigateBack = { navController.popBackStack() },
                 onItemSelect = { item ->
-                    if (item.id == -1) {
+                    if (item.id == -1L) {
                         navController.navigate(
                             CreateNewItemNav.CreateNewIScreen.passItemName(
                                 itemName = item.name

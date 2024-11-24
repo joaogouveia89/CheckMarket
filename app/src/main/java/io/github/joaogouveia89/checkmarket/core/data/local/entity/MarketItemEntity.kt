@@ -9,7 +9,7 @@ import kotlinx.datetime.LocalDateTime
 
 @Entity(tableName = "MarketItem")
 data class MarketItemEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
     val price: Double,
     val quantity: String,

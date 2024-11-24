@@ -6,7 +6,7 @@ import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 
 @Stable
 data class ItemAddSaveUiModel(
-    val id: Int = -1,
+    val id: Long = -1,
     val name: String = "",
     val price: String = "",
     val quantity: String = "",

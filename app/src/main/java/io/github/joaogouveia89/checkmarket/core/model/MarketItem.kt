@@ -5,7 +5,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
 data class MarketItem(
-    val id: Int? = null,
+    val id: Long? = null,
     val name: String,
     val category: MarketItemCategory,
     val price: Double,

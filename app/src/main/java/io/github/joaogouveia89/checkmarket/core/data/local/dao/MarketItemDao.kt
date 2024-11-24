@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.github.joaogouveia89.checkmarket.core.data.local.entity.MarketItemEntity
+import kotlinx.datetime.Instant
 
 @Dao
 interface MarketItemDao {
@@ -20,4 +21,7 @@ interface MarketItemDao {
 
     @Insert(onConflict = OnConflictStrategy.NONE)
     suspend fun insert(marketItem: MarketItemEntity): Long
+
+    @Query("UPDATE MarketItem SET price = :price, quantity = :quantity, updatedAt = :updatedAt WHERE id = :id")
+    suspend fun update(id: Long, price: Double, quantity: String, updatedAt: Instant)
 }

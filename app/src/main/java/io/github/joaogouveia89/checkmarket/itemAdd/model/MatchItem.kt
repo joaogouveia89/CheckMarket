@@ -5,7 +5,7 @@ import io.github.joaogouveia89.checkmarket.core.model.MarketItemCategory
 import io.github.joaogouveia89.checkmarket.itemAdd.presentation.model.ItemAddSaveUiModel
 
 data class MatchItem(
-    val id: Int,
+    val id: Long,
     val name: String,
     val category: MarketItemCategory?
 )

@@ -13,7 +13,7 @@ import io.github.joaogouveia89.checkmarket.core.presentation.topBars.CheckMarket
 import io.github.joaogouveia89.checkmarket.itemAdd.model.MatchItem
 import io.github.joaogouveia89.checkmarket.itemAdd.presentation.state.ItemAddState
 
-internal const val NEW_ITEM_ID = -1
+internal const val NEW_ITEM_ID = -1L
 
 @Composable
 fun ItemAddScreen(
